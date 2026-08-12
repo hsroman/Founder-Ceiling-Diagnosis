@@ -1,5 +1,5 @@
 /* ===========================================================
-   QS CONSULTING — Brand CSS
+   [NewCo] — Brand CSS
    Colors, typography, layout primitives, components
    =========================================================== */
 
@@ -667,7 +667,7 @@ p { margin: 0; }
 }
 
 /* ===========================================================
-   Why QSC — Numbers
+   Why [NewCo] — Numbers
    =========================================================== */
 .why { background: var(--navy); color: var(--cream-soft); }
 .why h2 { color: var(--cream); font-size: var(--fs-h2); }

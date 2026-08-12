@@ -1,6 +1,6 @@
 # Founder Ceiling Diagnosis
 
-An interactive lead-magnet landing page for **QS Consulting**. A founder-led marketing agency answers 15 questions and gets a personalized diagnosis: a dependence score, a maturity read across the three pillars (Technology, People, Process), an estimate of what the "founder ceiling" is costing them, and a 3-step action plan. Built as a free give that previews the paid 90-day install.
+An interactive lead-magnet landing page for **[NewCo]**. A founder-led marketing agency answers 15 questions and gets a personalized diagnosis: a dependence score, a maturity read across the three pillars (Technology, People, Process), an estimate of what the "founder ceiling" is costing them, and a 3-step action plan. Built as a free give that previews the paid 90-day install.
 
 Static site. No build step, no dependencies, no backend required.
 
@@ -42,9 +42,8 @@ Netlify or Vercel also work: drag the folder in, or point them at the repo. No b
 
 ```
 index.html    The landing page (markup, page-specific CSS, and the diagnosis logic)
-styles.css    QS Consulting brand system (shared with qslean.com)
+styles.css    Brand design system
 script.js     Booking-link wiring, scroll reveal, footer year
-assets/       Logo and favicon
 ```
 
 ## How the logic works
@@ -54,4 +53,4 @@ https://claude.ai/code/artifact/8899da60-7881-42cb-8fb7-df289198ab0d
 
 ## Notes
 
-Internal QS Consulting marketing asset. Not for redistribution. Copyright QS Consulting.
+Internal [NewCo] marketing asset. Not for redistribution. Copyright [NewCo].

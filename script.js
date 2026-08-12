@@ -1,5 +1,5 @@
 /* ============================================================
-   QS Consulting — Minimal interactions
+   [NewCo] — Minimal interactions
    - Scroll reveal (IntersectionObserver)
    - Booking link injection (set BOOKING_URL below)
    - Year in footer
@@ -8,7 +8,7 @@
 
 // ⬇️  Drop your booking link here when ready (Calendly, Cal.com, etc.)
 // TEMP: points at email so the CTA works. Replace with your scheduler URL.
-const BOOKING_URL = "mailto:hroman@qslean.com?subject=Free%2030-min%20agency%20audit";
+const BOOKING_URL = "#book"; // TODO: set NewCo scheduler / contact URL
 
 (function () {
   "use strict";
