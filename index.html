@@ -128,7 +128,8 @@
     .sc-teaser__score { font-family: var(--font-serif); font-size: clamp(3rem, 8vw, 4.5rem); color: var(--cream); font-weight: 700; line-height: 1; }
     .sc-teaser__den { font-size: 1.35rem; opacity: 0.6; }
     .sc-teaser__band { font-family: var(--font-serif); font-size: clamp(1.3rem, 3vw, 1.85rem); color: var(--rust); font-weight: 700; margin-top: 0.35rem; }
-    .sc-teaser__next { font-family: var(--font-serif); font-style: italic; color: var(--cream-soft); font-size: 1.1rem; margin-top: 1.25rem; opacity: 0.9; }
+    .sc-teaser__blurb { color: var(--cream-soft); font-size: 1.02rem; line-height: 1.6; margin: 1rem auto 0; max-width: 620px; }
+    .sc-teaser__next { font-family: var(--font-serif); font-style: italic; color: var(--cream-soft); font-size: 1.05rem; margin-top: 1.25rem; opacity: 0.8; }
 
     /* Gate */
     .sc-gate { display: none; padding: 0 0 clamp(3rem, 7vw, 5rem); }
@@ -335,7 +336,8 @@
             <div class="sc-teaser__eyebrow">Your dependence score</div>
             <div><span class="sc-teaser__score" id="scTeaserNum">0</span><span class="sc-teaser__den"> / 45</span></div>
             <div class="sc-teaser__band" id="scTeaserBand">—</div>
-            <p class="sc-teaser__next">That is the headline. Your full diagnosis, the cost estimate, and your 3-step plan are one step below.</p>
+            <p class="sc-teaser__blurb" id="scTeaserBlurb"></p>
+            <p class="sc-teaser__next">Your full diagnosis, the cost estimate, and your 3-step plan unlock just below.</p>
           </div>
         </div>
       </div>
@@ -689,6 +691,7 @@
         var band = bandFor(r.score);
         document.getElementById("scTeaserNum").textContent = r.score;
         document.getElementById("scTeaserBand").textContent = band.name;
+        document.getElementById("scTeaserBlurb").textContent = band.blurb;
         teaser.classList.add("is-shown");
         gate.classList.add("is-shown");
         // gentle scroll to the teaser
