@@ -150,6 +150,7 @@
     .sc-field.sc-field--full { grid-column: 1 / -1; }
     .sc-field label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
     .sc-field label .sc-req { color: var(--rust); }
+    .sc-field--q label { text-transform: none; letter-spacing: 0; font-size: 0.92rem; line-height: 1.4; }
     .sc-field .sc-help { font-size: 0.78rem; color: var(--slate-soft); font-weight: 400; letter-spacing: 0; text-transform: none; }
     .sc-field input {
       font-family: var(--font-sans); font-size: 1rem; color: var(--navy);
@@ -381,8 +382,8 @@
                 <label for="fRetainer">Average monthly retainer <span class="sc-req">*</span> <span class="sc-help">USD per client, your best estimate</span></label>
                 <input type="number" id="fRetainer" name="retainer" min="0" max="1000000" inputmode="numeric" placeholder="e.g. 4000" />
               </div>
-              <div class="sc-field sc-field--full">
-                <label for="fLostOps">Clients lost or close to losing over delivery or comms <span class="sc-req">*</span> <span class="sc-help">missed deadlines, inconsistent delivery, poor communication</span></label>
+              <div class="sc-field sc-field--full sc-field--q">
+                <label for="fLostOps">Of the clients you’ve lost, or you feel are close to losing, how many left over things like missed deadlines, inconsistent delivery, or poor communication? <span class="sc-req">*</span></label>
                 <input type="number" id="fLostOps" name="churnOps" min="0" max="1000" inputmode="numeric" placeholder="e.g. 2" />
               </div>
               <!-- honeypot -->
