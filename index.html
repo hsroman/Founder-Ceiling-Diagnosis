@@ -381,12 +381,8 @@
                 <label for="fRetainer">Average monthly retainer <span class="sc-req">*</span> <span class="sc-help">USD per client, your best estimate</span></label>
                 <input type="number" id="fRetainer" name="retainer" min="0" max="1000000" inputmode="numeric" placeholder="e.g. 4000" />
               </div>
-              <div class="sc-field">
-                <label for="fLost">Clients lost, last 12 months <span class="sc-req">*</span></label>
-                <input type="number" id="fLost" name="clientsLost" min="0" max="1000" inputmode="numeric" placeholder="e.g. 3" />
-              </div>
-              <div class="sc-field">
-                <label for="fLostOps">Of those, lost to delivery or comms <span class="sc-req">*</span> <span class="sc-help">missed deadlines, inconsistent delivery, poor communication</span></label>
+              <div class="sc-field sc-field--full">
+                <label for="fLostOps">Clients lost or close to losing over delivery or comms <span class="sc-req">*</span> <span class="sc-help">missed deadlines, inconsistent delivery, poor communication</span></label>
                 <input type="number" id="fLostOps" name="churnOps" min="0" max="1000" inputmode="numeric" placeholder="e.g. 2" />
               </div>
               <!-- honeypot -->
@@ -396,7 +392,7 @@
             <div class="sc-gate__actions">
               <button type="submit" class="btn btn--primary" id="scGateSubmit">Unlock my diagnosis <span class="arrow">→</span></button>
             </div>
-            <div class="sc-gate__error" id="scGateError">Please fill in your name, a valid email, and the numbers below. Clients lost to delivery cannot exceed total clients lost.</div>
+            <div class="sc-gate__error" id="scGateError">Please fill in your name, a valid email, and the numbers below.</div>
             <p class="sc-gate__privacy">We use your details to send this report and, at most, a short follow-up. No spam, no list-selling, unsubscribe anytime. Your answers are not shared.</p>
           </form>
         </div>
@@ -441,7 +437,7 @@
               <div class="sc-doc__section-label">What the ceiling is costing you</div>
               <div class="sc-cost">
                 <div class="sc-cost__inner">
-                  <div class="sc-cost__label">Preventable churn, from your own numbers</div>
+                  <div class="sc-cost__label">Revenue lost or at risk, from your own numbers</div>
                   <div class="sc-cost__figure" id="scCostYear">$0</div>
                   <div class="sc-cost__per" id="scCostMonth">about $0 / month</div>
                   <p class="sc-cost__basis" id="scCostBasis"></p>
@@ -744,20 +740,18 @@
       function money(n) {
         return "$" + Math.round(n).toLocaleString("en-US");
       }
-      // Built entirely from their own numbers: how many clients they lost to delivery/comms
-      // issues, times the retainer. No assumed churn rate, and the score does not factor in here.
-      function costEstimate(clientsLost, churnOps, retainer) {
+      // Built entirely from one of their own numbers: clients lost or close to losing over
+      // delivery/comms, times the retainer. No assumed churn rate, and the score does not factor in.
+      function costEstimate(churnOps, retainer) {
         var r = retainer > 0 ? retainer : 3500;
         var usedDefault = !(retainer > 0);
-        var lost = Math.max(0, clientsLost || 0);
-        var prevented = Math.min(Math.max(0, churnOps || 0), lost);   // cannot exceed total lost
-        var annual = prevented * r * 12;
+        var atRisk = Math.max(0, churnOps || 0);
+        var annual = atRisk * r * 12;
         var annualRounded = Math.round(annual / 1000) * 1000;
         return {
           annual: annualRounded,
           monthly: Math.round(annualRounded / 12 / 250) * 250,
-          prevented: prevented,
-          totalLost: lost,
+          atRisk: atRisk,
           retainer: r,
           usedDefault: usedDefault
         };
@@ -782,25 +776,25 @@
         document.getElementById("scRepBlurb").textContent = band.blurb;
         document.getElementById("scRadar").innerHTML = buildRadar(r.byDomain);
 
-        // cost (built entirely from their own churn numbers)
-        var cost = costEstimate(lead.clientsLost, lead.churnOps, lead.retainer);
+        // cost (built entirely from their own churn/at-risk number)
+        var cost = costEstimate(lead.churnOps, lead.retainer);
         var costYearEl = document.getElementById("scCostYear");
         var costMonthEl = document.getElementById("scCostMonth");
         var costBasisEl = document.getElementById("scCostBasis");
-        if (cost.prevented <= 0) {
-          costYearEl.textContent = "No preventable churn, yet";
+        if (cost.atRisk <= 0) {
+          costYearEl.textContent = "No accounts at risk, yet";
           costMonthEl.textContent = "";
-          costBasisEl.textContent = "By your own count, none of the clients you lost last year left over delivery or communication. Good. At this dependence level the ceiling is capping your growth more than bleeding clients, and the time cost below is where it shows up.";
+          costBasisEl.textContent = "By your own count, no clients are lost or at risk over delivery or communication right now. Good. At this dependence level the ceiling is capping your growth more than bleeding clients, and the time cost below is where it shows up.";
         } else {
-          var lostLabel = cost.totalLost + " client" + (cost.totalLost === 1 ? "" : "s");
+          var atRiskLabel = cost.atRisk + " client" + (cost.atRisk === 1 ? "" : "s");
           costYearEl.textContent = money(cost.annual) + " / year";
           costMonthEl.textContent = "about " + money(cost.monthly) + " / month";
           costBasisEl.textContent =
-            "By your own count, " + cost.prevented + " of the " + lostLabel +
-            " you lost last year left over delivery, deadline, or communication problems. At " +
+            "By your own count, you have " + atRiskLabel +
+            " lost or close to losing over delivery, deadline, or communication problems. At " +
             (cost.usedDefault ? "an industry-typical $3,500" : money(cost.retainer)) + " a month each" +
             (cost.usedDefault ? " (enter your real retainer for an exact figure)" : "") +
-            ", that is about " + money(cost.annual) + " a year in preventable churn, exactly what an operating system protects. This counts churn only, not the growth you cannot capture while your time runs delivery.";
+            ", that is about " + money(cost.annual) + " a year in revenue on the line, exactly what an operating system protects. This counts churn and at-risk accounts only, not the growth you cannot capture while your time runs delivery.";
         }
 
         // maturity rows
@@ -878,7 +872,6 @@
         var team = parseInt(document.getElementById("fTeam").value, 10);
         var clients = parseInt(document.getElementById("fClients").value, 10);
         var retainer = parseInt(document.getElementById("fRetainer").value, 10);
-        var clientsLost = parseInt(document.getElementById("fLost").value, 10);
         var churnOps = parseInt(document.getElementById("fLostOps").value, 10);
 
         var bad = [];
@@ -888,8 +881,7 @@
         mark("fTeam", team >= 1);
         mark("fClients", clients >= 1);
         mark("fRetainer", !isNaN(retainer) && retainer >= 0);
-        mark("fLost", !isNaN(clientsLost) && clientsLost >= 0);
-        mark("fLostOps", !isNaN(churnOps) && churnOps >= 0 && (isNaN(clientsLost) || churnOps <= clientsLost));
+        mark("fLostOps", !isNaN(churnOps) && churnOps >= 0);
 
         var err = document.getElementById("scGateError");
         if (bad.length) { err.classList.add("is-shown"); document.getElementById(bad[0]).focus(); return; }
@@ -900,7 +892,6 @@
         var lead = {
           name: name, email: email, agency: agency,
           team: team, clients: clients, retainer: isNaN(retainer) ? 0 : retainer,
-          clientsLost: isNaN(clientsLost) ? 0 : clientsLost,
           churnOps: isNaN(churnOps) ? 0 : churnOps,
           score: r.score, band: band.name,
           byDomain: r.byDomain,
