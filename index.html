@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Founder Ceiling Diagnosis — QS Consulting</title>
+  <meta name="description" content="A free operating diagnosis for founder-led US marketing agencies. Answer 15 questions and get a personalized report: your dependence score, a maturity read across five domains, an estimate of what the ceiling is costing you, and a 3-step action plan." />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="The Founder Ceiling Diagnosis — QS Consulting" />
+  <meta property="og:description" content="A personalized operating diagnosis for founder-led US marketing agencies. Score, maturity read, cost of the ceiling, and a 3-step action plan. Free." />
+  <meta property="og:url" content="https://qslean.com/founder-ceiling-scorecard/" />
+  <meta property="og:image" content="https://qslean.com/assets/og.png" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="The Founder Ceiling Diagnosis — QS Consulting" />
+  <meta name="twitter:description" content="A personalized operating diagnosis for founder-led agencies. Score, cost of the ceiling, and a 3-step plan. Free." />
+
+  <link rel="canonical" href="https://qslean.com/founder-ceiling-scorecard/" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <style>
+    /* ===========================================================
+       Founder Ceiling Diagnosis — page-specific (sc- namespace)
+       =========================================================== */
+    .sc-hero {
+      background-color: var(--navy);
+      color: var(--cream-soft);
+      padding: clamp(3.5rem, 9vw, 6rem) 0 clamp(2.5rem, 6vw, 4rem);
+      position: relative; overflow: hidden; isolation: isolate;
+    }
+    .sc-hero::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 80% 15%, rgba(181,119,72,0.22), transparent 60%),
+                  radial-gradient(ellipse at 5% 95%, rgba(173,144,112,0.14), transparent 55%);
+      pointer-events: none; z-index: 0;
+    }
+    .sc-hero__inner { position: relative; z-index: 1; max-width: 780px; }
+    .sc-hero h1 { color: var(--cream); font-size: clamp(2.25rem, 5.5vw, 4rem); margin-bottom: 1.25rem; }
+    .sc-hero__lead {
+      font-family: var(--font-serif); font-style: italic;
+      font-size: clamp(1.15rem, 2vw, 1.5rem); color: var(--cream-soft);
+      line-height: 1.45; margin-bottom: 1.75rem; max-width: 640px;
+    }
+    .sc-hero__meta {
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem;
+      font-size: 0.85rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--cream-soft); opacity: 0.85; font-weight: 700;
+    }
+    .sc-hero__meta span { display: inline-flex; align-items: center; gap: 0.5rem; }
+    .sc-hero__meta span::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--rust); flex: 0 0 auto; }
+
+    /* Sticky progress */
+    .sc-progress {
+      position: sticky; top: 78px; z-index: 40;
+      background: var(--cream-soft); border: 1px solid rgba(43,50,61,0.1);
+      border-radius: var(--radius); padding: 0.85rem 1.1rem;
+      display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow-sm); margin-bottom: 2.5rem;
+    }
+    .sc-progress__track { flex: 1; height: 8px; background: rgba(43,50,61,0.12); border-radius: 999px; overflow: hidden; }
+    .sc-progress__fill { height: 100%; width: 0%; background: var(--rust); border-radius: 999px; transition: width var(--t-med) var(--ease); }
+    .sc-progress__count { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); white-space: nowrap; }
+
+    /* Three pillars framing band */
+    .sc-pillars { padding: clamp(2rem, 5vw, 3rem) 0 0; }
+    .sc-pillars__lead { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--navy); line-height: 1.5; max-width: 760px; margin-bottom: 1.75rem; }
+    .sc-pillars__grid { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+    @media (min-width: 760px) { .sc-pillars__grid { grid-template-columns: repeat(3, 1fr); } }
+    .sc-pillar { background: var(--white); border: 1px solid rgba(43,50,61,0.08); border-top: 4px solid var(--rust); border-radius: var(--radius); padding: 1.5rem 1.35rem; }
+    .sc-pillar__fail { font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--tan); margin-bottom: 0.5rem; }
+    .sc-pillar h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .sc-pillar h3 span { font-family: var(--font-sans); font-size: 0.85rem; font-weight: 700; color: var(--tan); }
+    .sc-pillar p { color: var(--slate); font-size: 0.93rem; line-height: 1.55; }
+
+    .sc-quiz { padding: clamp(2.5rem, 6vw, 4rem) 0; }
+
+    .sc-domain { margin-bottom: 2.75rem; }
+    .sc-domain__head {
+      display: flex; align-items: baseline; gap: 0.9rem; margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem; border-bottom: 1px solid rgba(43,50,61,0.1);
+    }
+    .sc-domain__num { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--rust); line-height: 1; }
+    .sc-domain__name { font-family: var(--font-serif); font-size: 1.35rem; color: var(--navy); font-weight: 700; }
+    .sc-domain__hint { font-family: var(--font-serif); font-style: italic; color: var(--slate); font-size: 0.98rem; margin-left: auto; text-align: right; }
+
+    .sc-q {
+      background: var(--white); border: 1px solid rgba(43,50,61,0.08);
+      border-left: 3px solid rgba(181,119,72,0.35); border-radius: var(--radius);
+      padding: 1.35rem 1.5rem; margin-bottom: 1rem; transition: border-color var(--t-fast) var(--ease);
+    }
+    .sc-q.is-answered { border-left-color: var(--rust); }
+    .sc-q__text { font-size: var(--fs-body); color: var(--navy); line-height: 1.5; margin-bottom: 1rem; font-weight: 700; font-family: var(--font-serif); }
+    .sc-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; }
+    @media (max-width: 560px) { .sc-options { grid-template-columns: repeat(2, 1fr); } }
+    .sc-opt { position: relative; }
+    .sc-opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+    .sc-opt label {
+      display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 0.7rem 0.5rem; border: 1px solid rgba(43,50,61,0.18); border-radius: var(--radius);
+      cursor: pointer; height: 100%; background: var(--cream-soft);
+      transition: background var(--t-fast) var(--ease), border-color var(--t-fast) var(--ease), transform var(--t-fast) var(--ease);
+    }
+    .sc-opt label .sc-opt__label { font-size: 0.82rem; font-weight: 700; color: var(--slate); line-height: 1.2; }
+    .sc-opt label:hover { border-color: var(--rust); transform: translateY(-1px); }
+    .sc-opt input:checked + label { background: var(--rust); border-color: var(--rust); }
+    .sc-opt input:checked + label .sc-opt__label { color: var(--cream); }
+    .sc-opt input:focus-visible + label { outline: 2px solid var(--navy); outline-offset: 2px; }
+
+    .sc-incomplete {
+      text-align: center; color: var(--slate); font-family: var(--font-serif); font-style: italic;
+      font-size: 1.05rem; padding: 1.5rem; background: var(--cream-soft); border-radius: var(--radius); margin-top: 1rem;
+    }
+
+    /* Teaser (free score) */
+    .sc-teaser { display: none; padding: 0 0 clamp(2rem, 5vw, 3rem); }
+    .sc-teaser.is-shown { display: block; }
+    .sc-teaser__card {
+      background: var(--navy); color: var(--cream-soft); border-radius: var(--radius-lg);
+      padding: clamp(1.75rem, 4vw, 2.75rem); position: relative; overflow: hidden; text-align: center;
+    }
+    .sc-teaser__card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, rgba(181,119,72,0.2), transparent 65%); pointer-events: none; }
+    .sc-teaser__inner { position: relative; z-index: 1; }
+    .sc-teaser__eyebrow { font-size: var(--fs-eyebrow); letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); font-weight: 700; margin-bottom: 1rem; }
+    .sc-teaser__score { font-family: var(--font-serif); font-size: clamp(3rem, 8vw, 4.5rem); color: var(--cream); font-weight: 700; line-height: 1; }
+    .sc-teaser__den { font-size: 1.35rem; opacity: 0.6; }
+    .sc-teaser__band { font-family: var(--font-serif); font-size: clamp(1.3rem, 3vw, 1.85rem); color: var(--rust); font-weight: 700; margin-top: 0.35rem; }
+    .sc-teaser__next { font-family: var(--font-serif); font-style: italic; color: var(--cream-soft); font-size: 1.1rem; margin-top: 1.25rem; opacity: 0.9; }
+
+    /* Gate */
+    .sc-gate { display: none; padding: 0 0 clamp(3rem, 7vw, 5rem); }
+    .sc-gate.is-shown { display: block; }
+    .sc-gate__card {
+      background: var(--white); border: 1px solid rgba(43,50,61,0.1); border-top: 4px solid var(--rust);
+      border-radius: var(--radius-lg); padding: clamp(1.75rem, 4vw, 3rem); box-shadow: var(--shadow-md);
+    }
+    .sc-gate__head { margin-bottom: 1.75rem; }
+    .sc-gate h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); margin-bottom: 0.75rem; }
+    .sc-gate__sub { font-family: var(--font-serif); font-style: italic; color: var(--slate); font-size: 1.1rem; line-height: 1.5; max-width: 620px; }
+    .sc-gate__unlock-list { list-style: none; padding: 0; margin: 1.25rem 0 0; display: grid; gap: 0.5rem; }
+    .sc-gate__unlock-list li { position: relative; padding-left: 1.5rem; color: var(--navy); font-size: 0.97rem; }
+    .sc-gate__unlock-list li::before { content: "✓"; position: absolute; left: 0; color: var(--rust); font-weight: 700; }
+
+    .sc-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; margin-top: 1.75rem; }
+    @media (max-width: 620px) { .sc-fields { grid-template-columns: 1fr; } }
+    .sc-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .sc-field.sc-field--full { grid-column: 1 / -1; }
+    .sc-field label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--navy); }
+    .sc-field label .sc-req { color: var(--rust); }
+    .sc-field .sc-help { font-size: 0.78rem; color: var(--slate-soft); font-weight: 400; letter-spacing: 0; text-transform: none; }
+    .sc-field input {
+      font-family: var(--font-sans); font-size: 1rem; color: var(--navy);
+      padding: 0.8rem 0.95rem; border: 1px solid rgba(43,50,61,0.22); border-radius: var(--radius);
+      background: var(--cream-soft); transition: border-color var(--t-fast) var(--ease), background var(--t-fast) var(--ease);
+    }
+    .sc-field input:focus { outline: none; border-color: var(--rust); background: var(--white); }
+    .sc-field input.sc-invalid { border-color: #b3402f; background: #fbeceb; }
+    .sc-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .sc-gate__actions { margin-top: 1.75rem; display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+    .sc-gate__privacy { font-size: 0.82rem; color: var(--slate); opacity: 0.85; line-height: 1.5; margin-top: 1rem; max-width: 620px; }
+    .sc-gate__error { display: none; color: #b3402f; font-weight: 700; font-size: 0.9rem; margin-top: 0.75rem; }
+    .sc-gate__error.is-shown { display: block; }
+
+    /* Report */
+    .sc-report { display: none; padding: clamp(2rem, 5vw, 3.5rem) 0 clamp(3rem, 7vw, 5rem); }
+    .sc-report.is-shown { display: block; }
+    .sc-doc {
+      background: var(--white); border: 1px solid rgba(43,50,61,0.1); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg); overflow: hidden;
+    }
+    .sc-doc__band-top { height: 6px; background: linear-gradient(90deg, var(--rust), var(--tan)); }
+    .sc-doc__pad { padding: clamp(1.75rem, 4vw, 3.25rem); }
+
+    .sc-doc__header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; padding-bottom: 1.5rem; border-bottom: 1px solid rgba(43,50,61,0.1); }
+    .sc-doc__title-eyebrow { font-size: var(--fs-eyebrow); letter-spacing: 0.2em; text-transform: uppercase; color: var(--rust); font-weight: 700; margin-bottom: 0.5rem; }
+    .sc-doc__title { font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2.1rem); color: var(--navy); line-height: 1.15; }
+    .sc-doc__prepared { text-align: right; font-size: 0.85rem; color: var(--slate); line-height: 1.5; }
+    .sc-doc__prepared strong { color: var(--navy); display: block; font-size: 1rem; }
+
+    .sc-doc__section { padding: 2rem 0; border-bottom: 1px solid rgba(43,50,61,0.08); }
+    .sc-doc__section:last-child { border-bottom: 0; padding-bottom: 0.5rem; }
+    .sc-doc__section-label { font-size: var(--fs-eyebrow); letter-spacing: 0.18em; text-transform: uppercase; color: var(--tan); font-weight: 700; margin-bottom: 1.1rem; }
+
+    /* Summary row: score + radar */
+    .sc-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center; }
+    @media (max-width: 760px) { .sc-summary { grid-template-columns: 1fr; } }
+    .sc-summary__score { font-family: var(--font-serif); font-size: clamp(3rem, 7vw, 4.25rem); color: var(--navy); font-weight: 700; line-height: 1; }
+    .sc-summary__den { font-size: 1.35rem; color: var(--slate-soft); }
+    .sc-summary__band { font-family: var(--font-serif); font-size: clamp(1.3rem, 3vw, 1.85rem); color: var(--rust); font-weight: 700; margin: 0.35rem 0 0.85rem; }
+    .sc-summary__blurb { color: var(--slate); font-size: 0.98rem; line-height: 1.6; }
+    .sc-radar { display: flex; justify-content: center; }
+    .sc-radar svg { width: 100%; max-width: 340px; height: auto; }
+
+    /* Cost block */
+    .sc-cost { background: var(--navy); color: var(--cream-soft); border-radius: var(--radius); padding: clamp(1.5rem, 4vw, 2.5rem); position: relative; overflow: hidden; }
+    .sc-cost::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at 90% 10%, rgba(181,119,72,0.22), transparent 60%); pointer-events: none; }
+    .sc-cost__inner { position: relative; z-index: 1; }
+    .sc-cost__label { font-size: var(--fs-eyebrow); letter-spacing: 0.18em; text-transform: uppercase; color: var(--rust); font-weight: 700; margin-bottom: 0.75rem; }
+    .sc-cost__figure { font-family: var(--font-serif); font-size: clamp(2.5rem, 7vw, 4rem); color: var(--cream); font-weight: 700; line-height: 1; }
+    .sc-cost__per { font-size: 1.1rem; color: var(--cream-soft); opacity: 0.8; margin-top: 0.5rem; }
+    .sc-cost__basis { font-size: 0.85rem; color: var(--cream-soft); opacity: 0.7; line-height: 1.55; margin-top: 1.25rem; max-width: 640px; border-top: 1px solid rgba(218,206,190,0.15); padding-top: 1.1rem; }
+
+    /* Maturity rows */
+    .sc-mat { display: grid; gap: 0.75rem; }
+    .sc-mat__row { display: grid; grid-template-columns: 130px 1fr auto; gap: 1rem; align-items: center; padding: 0.85rem 1rem; background: var(--cream-soft); border-radius: var(--radius); border-left: 3px solid var(--rust); }
+    @media (max-width: 620px) { .sc-mat__row { grid-template-columns: 1fr auto; } .sc-mat__bar-wrap { grid-column: 1 / -1; order: 3; } }
+    .sc-mat__name { font-family: var(--font-serif); font-weight: 700; color: var(--navy); font-size: 1rem; }
+    .sc-mat__bar-wrap { height: 8px; background: rgba(43,50,61,0.12); border-radius: 999px; overflow: hidden; }
+    .sc-mat__bar { height: 100%; border-radius: 999px; background: var(--rust); }
+    .sc-mat__level { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--rust-dark); white-space: nowrap; text-align: right; }
+
+    /* Action plan */
+    .sc-plan-intro { font-family: var(--font-serif); font-style: italic; color: var(--slate); font-size: 1rem; line-height: 1.55; max-width: 680px; margin-bottom: 1.25rem; }
+    .sc-plan { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+    @media (min-width: 780px) { .sc-plan { grid-template-columns: repeat(3, 1fr); } }
+    .sc-step { background: var(--cream-soft); border-radius: var(--radius); border-top: 4px solid var(--rust); padding: 1.5rem 1.35rem; display: flex; flex-direction: column; }
+    .sc-step__gap { margin-top: 0.9rem; align-self: flex-start; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); background: var(--rust); padding: 0.28rem 0.6rem; border-radius: 999px; }
+    .sc-step__num { font-family: var(--font-serif); font-size: 2rem; color: var(--rust); font-weight: 700; line-height: 1; margin-bottom: 0.35rem; }
+    .sc-step__when { font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--tan); margin-bottom: 0.75rem; }
+    .sc-step__domain { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; color: var(--rust); margin-bottom: 0.4rem; }
+    .sc-step h4 { font-family: var(--font-serif); font-size: 1.15rem; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.25; }
+    .sc-step p { color: var(--slate); font-size: 0.92rem; line-height: 1.55; }
+
+    /* Scope reveal */
+    .sc-scope { }
+    .sc-scope__lead { font-size: var(--fs-body-lg); color: var(--navy); line-height: 1.6; max-width: 680px; margin-bottom: 1.25rem; }
+    .sc-scope__lead strong { color: var(--rust); }
+    .sc-scope__loop { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .sc-scope__loop span { font-size: 0.82rem; font-weight: 700; color: var(--rust-dark); background: var(--cream-soft); border: 1px solid rgba(181,119,72,0.3); border-radius: 999px; padding: 0.4rem 0.85rem; }
+    .sc-scope__reality { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    @media (max-width: 620px) { .sc-scope__reality { grid-template-columns: 1fr; } }
+    .sc-scope__stat { background: var(--navy); color: var(--cream-soft); border-radius: var(--radius); padding: 1.25rem 1.25rem; }
+    .sc-scope__num { display: block; font-family: var(--font-serif); font-size: clamp(1.75rem, 4vw, 2.4rem); font-weight: 700; color: var(--rust); line-height: 1; margin-bottom: 0.4rem; }
+    .sc-scope__lbl { font-size: 0.85rem; color: var(--cream-soft); opacity: 0.85; line-height: 1.4; }
+    .sc-scope__close { font-family: var(--font-serif); font-style: italic; font-size: 1.15rem; color: var(--navy); line-height: 1.5; border-left: 3px solid var(--rust); padding-left: 1rem; }
+
+    /* Report CTA */
+    .sc-report__cta { margin-top: 2rem; background: var(--cream-soft); border-radius: var(--radius-lg); padding: clamp(1.75rem, 4vw, 2.5rem); text-align: center; }
+    .sc-report__cta h3 { font-family: var(--font-serif); font-size: clamp(1.4rem, 3vw, 1.9rem); color: var(--navy); margin-bottom: 0.75rem; }
+    .sc-report__cta p { color: var(--slate); font-size: 1.02rem; line-height: 1.55; max-width: 620px; margin: 0 auto 1.75rem; }
+    .sc-report__cta-row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; }
+    .sc-report__utility { margin-top: 1.5rem; display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .sc-linkbtn { background: none; color: var(--slate); text-decoration: underline; text-underline-offset: 3px; font-size: 0.88rem; font-weight: 700; transition: color var(--t-fast) var(--ease); }
+    .sc-linkbtn:hover { color: var(--rust); }
+
+    /* Print */
+    @media print {
+      .site-header, .footer, .sc-hero, .sc-quiz, .sc-teaser, .sc-gate, .sc-report__cta, .sc-report__utility, .section { display: none !important; }
+      body { background: #fff; }
+      .sc-report { display: block !important; padding: 0; }
+      .sc-doc { box-shadow: none; border: 0; }
+      .sc-cost { background: #2B323D !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="site-header__logo" href="https://qslean.com/" aria-label="QS Consulting home">
+        <img src="assets/qslogo-on-cream.png" alt="QS Consulting" />
+      </a>
+      <nav class="site-header__nav" aria-label="Primary">
+        <a href="https://qslean.com/#book" class="btn btn--primary site-header__cta" data-booking-link>
+          Book my install roadmap <span class="arrow">→</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- Hero -->
+    <section class="sc-hero">
+      <div class="container sc-hero__inner">
+        <div class="hero__eyebrow">Free Operating Diagnosis · For Founder-Led US Marketing Agencies</div>
+        <h1>How much of your agency is riding on you?</h1>
+        <p class="sc-hero__lead">Answer 15 questions and get a personalized diagnosis: your dependence score, a maturity read across the three pillars every agency runs on (process, people, and technology), an estimate of what the ceiling is costing you in real dollars, and a 3-step plan to start fixing it.</p>
+        <div class="sc-hero__meta">
+          <span>15 questions</span>
+          <span>About 4 minutes</span>
+          <span>Personalized written report</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Three pillars / three failures framing -->
+    <section class="sc-pillars">
+      <div class="container" style="max-width: 900px;">
+        <p class="sc-pillars__lead">Every agency trying to escape the founder ceiling makes the same three moves, and they fail in the same order. This diagnosis scores all three, because fixing one without the others is exactly why the last attempt did not stick.</p>
+        <div class="sc-pillars__grid">
+          <div class="sc-pillar">
+            <div class="sc-pillar__fail">Failure 1</div>
+            <h3>Technology</h3>
+            <p>You install PM software. It becomes a filing cabinet nobody updates.</p>
+          </div>
+          <div class="sc-pillar">
+            <div class="sc-pillar__fail">Failure 2</div>
+            <h3>People <span>(culture)</span></h3>
+            <p>You hire a PM. They have nothing to run, so it routes back to you.</p>
+          </div>
+          <div class="sc-pillar">
+            <div class="sc-pillar__fail">Failure 3</div>
+            <h3>Process</h3>
+            <p>You do 1 and 2 but skip the process. Now the hire and the tool are bound to fail.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quiz -->
+    <section class="sc-quiz">
+      <div class="container" style="max-width: 900px;">
+        <div class="sc-progress" id="scProgress" aria-hidden="true">
+          <div class="sc-progress__count"><span id="scCount">0</span> / 15 answered</div>
+          <div class="sc-progress__track"><div class="sc-progress__fill" id="scFill"></div></div>
+        </div>
+        <form id="scForm" aria-label="Founder Ceiling Diagnosis">
+          <div id="scQuestions"><!-- rendered by JS --></div>
+        </form>
+        <p class="sc-incomplete" id="scIncomplete">Answer all 15 to unlock your diagnosis. It appears below automatically.</p>
+      </div>
+    </section>
+
+    <!-- Teaser (free score) -->
+    <section class="sc-teaser" id="scTeaser" aria-live="polite">
+      <div class="container" style="max-width: 900px;">
+        <div class="sc-teaser__card">
+          <div class="sc-teaser__inner">
+            <div class="sc-teaser__eyebrow">Your dependence score</div>
+            <div><span class="sc-teaser__score" id="scTeaserNum">0</span><span class="sc-teaser__den"> / 45</span></div>
+            <div class="sc-teaser__band" id="scTeaserBand">—</div>
+            <p class="sc-teaser__next">That is the headline. Your full diagnosis, the cost estimate, and your 3-step plan are one step below.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gate -->
+    <section class="sc-gate" id="scGate">
+      <div class="container" style="max-width: 900px;">
+        <div class="sc-gate__card">
+          <div class="sc-gate__head">
+            <span class="eyebrow">Unlock your full diagnosis</span>
+            <h2>Where should we send your report?</h2>
+            <p class="sc-gate__sub">Three quick numbers let us estimate what the ceiling is actually costing you. Your report unlocks on this page the moment you submit.</p>
+            <ul class="sc-gate__unlock-list">
+              <li>A maturity read across all five domains, visualized</li>
+              <li>An estimate of the ceiling's cost, from your own numbers</li>
+              <li>A prioritized 3-step action plan built from your weakest areas</li>
+            </ul>
+          </div>
+
+          <form id="scGateForm" novalidate>
+            <div class="sc-fields">
+              <div class="sc-field">
+                <label for="fName">First name <span class="sc-req">*</span></label>
+                <input type="text" id="fName" name="name" autocomplete="given-name" />
+              </div>
+              <div class="sc-field">
+                <label for="fEmail">Work email <span class="sc-req">*</span></label>
+                <input type="email" id="fEmail" name="email" autocomplete="email" />
+              </div>
+              <div class="sc-field sc-field--full">
+                <label for="fAgency">Agency name <span class="sc-help">(optional)</span></label>
+                <input type="text" id="fAgency" name="agency" autocomplete="organization" />
+              </div>
+              <div class="sc-field">
+                <label for="fTeam">Team size <span class="sc-req">*</span> <span class="sc-help">people who do client work</span></label>
+                <input type="number" id="fTeam" name="team" min="1" max="500" inputmode="numeric" />
+              </div>
+              <div class="sc-field">
+                <label for="fClients">Active clients <span class="sc-req">*</span></label>
+                <input type="number" id="fClients" name="clients" min="1" max="1000" inputmode="numeric" />
+              </div>
+              <div class="sc-field sc-field--full">
+                <label for="fRetainer">Average monthly retainer <span class="sc-req">*</span> <span class="sc-help">USD per client, your best estimate</span></label>
+                <input type="number" id="fRetainer" name="retainer" min="0" max="1000000" inputmode="numeric" placeholder="e.g. 4000" />
+              </div>
+              <!-- honeypot -->
+              <input class="sc-hp" type="text" id="fCompanyUrl" name="company_url" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            </div>
+
+            <div class="sc-gate__actions">
+              <button type="submit" class="btn btn--primary" id="scGateSubmit">Unlock my diagnosis <span class="arrow">→</span></button>
+            </div>
+            <div class="sc-gate__error" id="scGateError">Please fill in your name, a valid email, and the three numbers.</div>
+            <p class="sc-gate__privacy">We use your details to send this report and, at most, a short follow-up. No spam, no list-selling, unsubscribe anytime. Your answers are not shared.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Report -->
+    <section class="sc-report" id="scReport" aria-live="polite">
+      <div class="container" style="max-width: 960px;">
+        <div class="sc-doc" id="scDoc">
+          <div class="sc-doc__band-top"></div>
+          <div class="sc-doc__pad">
+
+            <div class="sc-doc__header">
+              <div>
+                <div class="sc-doc__title-eyebrow">Founder Ceiling Diagnosis</div>
+                <div class="sc-doc__title">Operating dependence report</div>
+              </div>
+              <div class="sc-doc__prepared">
+                Prepared for
+                <strong id="scRepName">—</strong>
+                <span id="scRepAgency"></span>
+                <span id="scRepDate"></span>
+              </div>
+            </div>
+
+            <!-- Summary + radar -->
+            <div class="sc-doc__section">
+              <div class="sc-doc__section-label">The headline</div>
+              <div class="sc-summary">
+                <div>
+                  <div><span class="sc-summary__score" id="scRepScore">0</span><span class="sc-summary__den"> / 45 dependence</span></div>
+                  <div class="sc-summary__band" id="scRepBand">—</div>
+                  <p class="sc-summary__blurb" id="scRepBlurb"></p>
+                </div>
+                <div class="sc-radar" id="scRadar"><!-- svg injected --></div>
+              </div>
+            </div>
+
+            <!-- Cost -->
+            <div class="sc-doc__section">
+              <div class="sc-doc__section-label">What the ceiling is costing you</div>
+              <div class="sc-cost">
+                <div class="sc-cost__inner">
+                  <div class="sc-cost__label">Estimated preventable loss</div>
+                  <div class="sc-cost__figure" id="scCostYear">$0</div>
+                  <div class="sc-cost__per" id="scCostMonth">about $0 / month</div>
+                  <p class="sc-cost__basis" id="scCostBasis"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Maturity -->
+            <div class="sc-doc__section">
+              <div class="sc-doc__section-label">Maturity across the three pillars</div>
+              <div class="sc-mat" id="scMat"><!-- rows injected --></div>
+            </div>
+
+            <!-- Action plan -->
+            <div class="sc-doc__section">
+              <div class="sc-doc__section-label">Your 3-step action plan</div>
+              <p class="sc-plan-intro">You likely hit these in order: install software first, hire a PM second, and never build the process. The fix runs in reverse. Build the process foundation, put an owner on it, then make the tool carry it. Your maturity per pillar is marked.</p>
+              <div class="sc-plan" id="scPlan"><!-- steps injected --></div>
+            </div>
+
+            <!-- Scope reveal -->
+            <div class="sc-doc__section">
+              <div class="sc-doc__section-label">What a finished system actually takes</div>
+              <div class="sc-scope">
+                <p class="sc-scope__lead">Those three moves fix <strong>one</strong> workflow. A founder-proof agency runs every one of its core processes through the same improvement loop, across all three pillars. That loop is the operating function.</p>
+                <div class="sc-scope__loop">
+                  <span>Define done (OKRs)</span>
+                  <span>Execute (SIPOC + reverse-schedule)</span>
+                  <span>Close the feedback loop</span>
+                  <span>Communicate &amp; train</span>
+                </div>
+                <div class="sc-scope__reality">
+                  <div class="sc-scope__stat"><span class="sc-scope__num">~15</span><span class="sc-scope__lbl">core processes to systemize</span></div>
+                  <div class="sc-scope__stat"><span class="sc-scope__num">~180 hrs</span><span class="sc-scope__lbl">of founder time, done properly</span></div>
+                  <div class="sc-scope__stat"><span class="sc-scope__num">~10 mo</span><span class="sc-scope__lbl">at the pace you can spare, on top of running the agency</span></div>
+                </div>
+                <p class="sc-scope__close">You can start step 1 this week. Finishing it alone is the better part of a year you already told us you do not have.</p>
+              </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="sc-report__cta">
+              <h3>This is the free version.</h3>
+              <p>All of that came from 15 questions and three numbers. On a free 30-minute call we turn your diagnosis into a 90-day install roadmap: which processes to systemize first, who owns them, and how your tool carries them. You leave with the plan whether or not you hire us.</p>
+              <div class="sc-report__cta-row">
+                <a href="https://qslean.com/#book" class="btn btn--primary" data-booking-link>Book my install roadmap <span class="arrow">→</span></a>
+                <a href="https://qslean.com/#how" class="btn btn--ghost">See what a full install looks like</a>
+              </div>
+              <div class="sc-report__utility">
+                <button type="button" class="sc-linkbtn" id="scPrint">Print / save as PDF</button>
+                <button type="button" class="sc-linkbtn" id="scRetake">Retake the diagnosis</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <a class="footer__logo" href="https://qslean.com/">
+          <img src="assets/qslogo-on-navy.png" alt="QS Consulting" />
+        </a>
+        <div class="footer__meta">
+          <a href="https://qslean.com/">Agency OS</a>
+          <a href="https://qslean.com/aviation/">Aviation</a>
+          <a href="https://qslean.com/automotive/">Automotive</a>
+          <a href="https://qslean.com/construction/">Construction</a>
+          <a href="mailto:hroman@qslean.com">hroman@qslean.com</a>
+          <a href="https://qslean.com/es/">Español</a>
+        </div>
+      </div>
+      <div class="footer__copy">© <span id="year"></span> QS Consulting. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script src="script.js" defer></script>
+  <script>
+    (function () {
+      "use strict";
+
+      /* ====== CONFIG: paste your list endpoint here (Formspree / GHL / webhook) ======
+         Accepts a JSON POST of the lead payload. Leave "" to run capture-less
+         (report still unlocks; lead is stored in the browser + emailed as fallback). */
+      var LEAD_ENDPOINT = "";
+
+      // Questions are grouped into the three AOS pillars, each mapped to one of the
+      // three points of failure. Diagnose order = failure order (1 Technology, 2 People,
+      // 3 Process) so the assessment builds to the Process reveal.
+      var QUESTIONS = [
+        // Technology — Failure 1: installed PM software, became a filing cabinet nobody updates
+        { d: "Technology", t: "We have a PM tool, but the team still runs on Slack, email, and memory." },
+        { d: "Technology", t: "To know how the work is really going, I have to ask someone directly, because the status in our software is out of date." },
+        { d: "Technology", t: "We pay for tools that only a couple of people actually use the way they should." },
+        { d: "Technology", t: "Our PM tool has become a place where tasks get logged and then forgotten." },
+        { d: "Technology", t: "We installed software expecting it to fix our operations, and it mostly did not." },
+        // People (culture) — Failure 2: hired a PM, but ownership still routes back to you
+        { d: "People", t: "There is no one person besides me who is truly accountable for operations." },
+        { d: "People", t: "I have someone in ops, but the team still comes to me for answers." },
+        { d: "People", t: "The client’s real loyalty is to me, not to the team or the agency." },
+        { d: "People", t: "If I went dark for two days, at least one account would wobble." },
+        { d: "People", t: "If I sold the agency tomorrow, the buyer is really buying me." },
+        // Process — Failure 3: did 1 and 2 but never built the process infrastructure, so both fail
+        { d: "Process", t: "New team members learn the job by watching me and others, not from a written process." },
+        { d: "Process", t: "People keep making the same mistakes." },
+        { d: "Process", t: "There is no consistent “done” standard; it lives in my head." },
+        { d: "Process", t: "Deadlines are hit because I am chasing them, not because a defined workflow protects them." },
+        { d: "Process", t: "When we take on new work, we improvise who does what instead of following a set process." }
+      ];
+
+      var DOMAIN_ORDER = ["Technology", "People", "Process"];   // diagnose / display order (failures 1, 2, 3)
+      var PLAN_ORDER   = ["Process", "People", "Technology"];   // fix / install order (foundation first)
+
+      var FAILURE = {
+        "Technology": "Failure 1 · you installed PM software",
+        "People": "Failure 2 · you hired a PM",
+        "Process": "Failure 3 · you skipped the process"
+      };
+
+      var DOMAIN_HINTS = {
+        "Technology": "Does your software actually run the work?",
+        "People": "Does anyone own this but you?",
+        "Process": "Does the work run without you deciding each step?"
+      };
+
+      var SCALE = [
+        { v: 0, label: "Not true" },
+        { v: 1, label: "Sometimes" },
+        { v: 2, label: "Mostly" },
+        { v: 3, label: "Completely" }
+      ];
+
+      var BANDS = [
+        { min: 0,  max: 11, name: "Systems-led",
+          blurb: "Be proud of yourself and your team: the agency runs on systems and processes instead of you. Protect what you built by setting up an auditing loop, especially as you grow." },
+        { min: 12, max: 22, name: "Approaching the ceiling",
+          blurb: "You're almost there. The cracks are structural instead of personal. You can still fix this cheaply now: finish building the systems before you are dragged back to the Founder Bottleneck." },
+        { min: 23, max: 33, name: "At the Founder Ceiling",
+          blurb: "Where most agencies stall for years. You are the operating system, so every new client and hire adds load to you. Growth makes it worse, not better. A fixable structural problem, not a work-ethic one." },
+        { min: 34, max: 45, name: "Single point of failure",
+          blurb: "The agency cannot function without you in the loop, which caps both its growth and its sale value. The upside: a business this dependent on one person responds fastest to a real operating function, because there is so much trapped value to release." }
+      ];
+
+      // Maturity level from a pillar sub-score (0-15). Higher sub-score = more dependent = lower maturity.
+      function maturity(sub) {
+        if (sub <= 2) return { lvl: 5, name: "Systems-led" };
+        if (sub <= 5) return { lvl: 4, name: "Documented" };
+        if (sub <= 8) return { lvl: 3, name: "Inconsistent" };
+        if (sub <= 11) return { lvl: 2, name: "Founder-run" };
+        return { lvl: 1, name: "Chaotic" };
+      }
+
+      // One easy first move per pillar, rendered in PLAN_ORDER (Process, People, Technology):
+      // the fix sequence, foundation first. Each is a Monday-able action; the scope reveal
+      // below the plan shows the full system these three moves only seed.
+      var DOMAIN_ACTION = {
+        "Process": {
+          title: "Write down your most-repeated process, start to finish",
+          body: "Pick the workflow you run most: onboarding, campaign launch, or reporting. List every step, who owns it, and what “done” means. One document, a couple of hours. That single SOP is the seed of the whole system."
+        },
+        "People": {
+          title: "Name the one person who will own operations",
+          body: "Decide who is accountable for the system, or define the role you need to hire. Tell them, and hand them that first written process to run. You are creating the seat the agency does not have yet."
+        },
+        "Technology": {
+          title: "Rebuild that one process in your PM tool as a template",
+          body: "Take the process you just wrote down and set it up once in your software: statuses, a checklist, a due-date pattern. Next time it runs from a reusable template instead of from memory."
+        }
+      };
+
+      var STEP_WHEN = ["This week", "Next 2 weeks", "The week after"];
+
+      var answers = {};
+      var total = QUESTIONS.length;
+
+      /* ---------- Render questions ---------- */
+      var wrap = document.getElementById("scQuestions");
+      var lastDomain = null, domainIndex = 0;
+      var frag = document.createDocumentFragment();
+
+      QUESTIONS.forEach(function (q, i) {
+        if (q.d !== lastDomain) {
+          domainIndex++; lastDomain = q.d;
+          var group = document.createElement("div");
+          group.className = "sc-domain";
+          group.innerHTML =
+            '<div class="sc-domain__head">' +
+              '<span class="sc-domain__num">' + String(domainIndex).padStart(2, "0") + '</span>' +
+              '<span class="sc-domain__name">' + q.d + '</span>' +
+              '<span class="sc-domain__hint">' + (DOMAIN_HINTS[q.d] || "") + '</span>' +
+            '</div><div class="sc-domain__body"></div>';
+          frag.appendChild(group);
+        }
+        var body = frag.lastChild.querySelector(".sc-domain__body");
+        var card = document.createElement("div");
+        card.className = "sc-q"; card.id = "q" + i;
+        var opts = SCALE.map(function (s) {
+          var id = "q" + i + "_" + s.v;
+          return '<div class="sc-opt"><input type="radio" name="q' + i + '" id="' + id + '" value="' + s.v + '" />' +
+                 '<label for="' + id + '"><span class="sc-opt__label">' + s.label + '</span></label></div>';
+        }).join("");
+        card.innerHTML = '<div class="sc-q__text">' + q.t + '</div>' +
+          '<div class="sc-options" role="radiogroup" aria-label="' + q.t.replace(/"/g, "&quot;") + '">' + opts + '</div>';
+        body.appendChild(card);
+      });
+      wrap.appendChild(frag);
+
+      /* ---------- Elements ---------- */
+      var fill = document.getElementById("scFill");
+      var count = document.getElementById("scCount");
+      var incomplete = document.getElementById("scIncomplete");
+      var teaser = document.getElementById("scTeaser");
+      var gate = document.getElementById("scGate");
+      var report = document.getElementById("scReport");
+
+      /* ---------- Scoring ---------- */
+      function computeScore() {
+        var score = 0, byDomain = {};
+        DOMAIN_ORDER.forEach(function (d) { byDomain[d] = 0; });
+        QUESTIONS.forEach(function (q, i) {
+          var v = answers[i] || 0; score += v; byDomain[q.d] += v;
+        });
+        return { score: score, byDomain: byDomain };
+      }
+      function bandFor(score) {
+        for (var b = 0; b < BANDS.length; b++) {
+          if (score >= BANDS[b].min && score <= BANDS[b].max) return BANDS[b];
+        }
+        return BANDS[BANDS.length - 1];
+      }
+
+      function onAnswerChange() {
+        var answered = Object.keys(answers).length;
+        count.textContent = answered;
+        fill.style.width = Math.round((answered / total) * 100) + "%";
+        if (answered < total) {
+          teaser.classList.remove("is-shown");
+          gate.classList.remove("is-shown");
+          incomplete.style.display = "block";
+          incomplete.textContent = "Answer all " + total + " to unlock your diagnosis (" + (total - answered) + " to go).";
+          return;
+        }
+        incomplete.style.display = "none";
+        showTeaserAndGate();
+      }
+
+      function showTeaserAndGate() {
+        var r = computeScore();
+        var band = bandFor(r.score);
+        document.getElementById("scTeaserNum").textContent = r.score;
+        document.getElementById("scTeaserBand").textContent = band.name;
+        teaser.classList.add("is-shown");
+        gate.classList.add("is-shown");
+        // gentle scroll to the teaser
+        var y = teaser.getBoundingClientRect().top + window.scrollY - 90;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+
+      /* ---------- Radar (pentagon) ---------- */
+      function buildRadar(byDomain) {
+        var cx = 160, cy = 158, R = 108, n = DOMAIN_ORDER.length;
+        function pt(i, radius) {
+          var ang = (-90 + i * (360 / n)) * Math.PI / 180;
+          return [cx + radius * Math.cos(ang), cy + radius * Math.sin(ang)];
+        }
+        var rings = "";
+        [0.25, 0.5, 0.75, 1].forEach(function (f) {
+          var p = DOMAIN_ORDER.map(function (_, i) { return pt(i, R * f).join(","); }).join(" ");
+          rings += '<polygon points="' + p + '" fill="none" stroke="rgba(43,50,61,0.12)" stroke-width="1"/>';
+        });
+        var spokes = "", labels = "";
+        DOMAIN_ORDER.forEach(function (d, i) {
+          var edge = pt(i, R);
+          spokes += '<line x1="' + cx + '" y1="' + cy + '" x2="' + edge[0] + '" y2="' + edge[1] + '" stroke="rgba(43,50,61,0.12)" stroke-width="1"/>';
+          var lp = pt(i, R + 22);
+          var anchor = Math.abs(lp[0] - cx) < 6 ? "middle" : (lp[0] < cx ? "end" : "start");
+          var short = d === "Client Comms" ? "Client Comms" : d;
+          labels += '<text x="' + lp[0] + '" y="' + (lp[1] + 4) + '" text-anchor="' + anchor + '" font-family="Georgia, serif" font-size="12" font-weight="700" fill="#2B323D">' + short + '</text>';
+        });
+        // value polygon: higher maturity = larger. maturity value = (15 - sub)/15
+        var valPts = DOMAIN_ORDER.map(function (d, i) {
+          var sub = byDomain[d] || 0;
+          var val = (15 - sub) / 15;
+          if (val < 0.06) val = 0.06;
+          return pt(i, R * val).join(",");
+        }).join(" ");
+        var dots = DOMAIN_ORDER.map(function (d, i) {
+          var sub = byDomain[d] || 0; var val = (15 - sub) / 15; if (val < 0.06) val = 0.06;
+          var p = pt(i, R * val);
+          return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#B57748"/>';
+        }).join("");
+        return '<svg viewBox="0 0 320 300" role="img" aria-label="Maturity across the three pillars">' +
+          rings + spokes +
+          '<polygon points="' + valPts + '" fill="rgba(181,119,72,0.25)" stroke="#B57748" stroke-width="2"/>' +
+          dots + labels +
+          '<text x="' + cx + '" y="292" text-anchor="middle" font-family="Georgia, serif" font-style="italic" font-size="10.5" fill="#65676B">Larger shape = more systemized</text>' +
+          '</svg>';
+      }
+
+      /* ---------- Cost model ---------- */
+      function money(n) {
+        return "$" + Math.round(n).toLocaleString("en-US");
+      }
+      function costEstimate(score, clients, retainer) {
+        var severity = score / 45;                 // 0..1
+        var preventableFrac = severity * 0.18;     // up to 18%/yr of the book exposed
+        var avoidableClients = clients * preventableFrac;
+        var annual = avoidableClients * retainer * 12;
+        // round to nearest 5k for a clean, non-false-precision figure
+        var annualRounded = Math.round(annual / 5000) * 5000;
+        return {
+          annual: annualRounded,
+          monthly: Math.round(annualRounded / 12 / 250) * 250,
+          pct: Math.round(preventableFrac * 100),
+          clientsLost: avoidableClients
+        };
+      }
+
+      /* ---------- Render report ---------- */
+      var lastPayload = null;
+      function renderReport(lead) {
+        var r = computeScore();
+        var band = bandFor(r.score);
+
+        // header
+        document.getElementById("scRepName").textContent = lead.name;
+        document.getElementById("scRepAgency").textContent = lead.agency ? lead.agency : "";
+        try {
+          document.getElementById("scRepDate").textContent = new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        } catch (e) { document.getElementById("scRepDate").textContent = ""; }
+
+        // headline
+        document.getElementById("scRepScore").textContent = r.score;
+        document.getElementById("scRepBand").textContent = band.name;
+        document.getElementById("scRepBlurb").textContent = band.blurb;
+        document.getElementById("scRadar").innerHTML = buildRadar(r.byDomain);
+
+        // cost
+        var retainer = lead.retainer > 0 ? lead.retainer : 3500;
+        var usedDefault = !(lead.retainer > 0);
+        var cost = costEstimate(r.score, lead.clients, retainer);
+        document.getElementById("scCostYear").textContent = money(cost.annual) + " / year";
+        document.getElementById("scCostMonth").textContent = "about " + money(cost.monthly) + " / month, conservatively";
+        document.getElementById("scCostBasis").textContent =
+          "Basis: at your dependence level, roughly " + cost.pct + "% of your " + lead.clients +
+          " accounts are exposed to preventable churn each year, valued at " +
+          (usedDefault ? "an industry-typical $3,500" : money(retainer)) + " average retainer over 12 months" +
+          (usedDefault ? " (enter your real retainer for an exact figure)" : "") +
+          ". This counts preventable churn only, not the growth you are not capturing while your time runs delivery. We pressure-test it live on the call.";
+
+        // maturity rows
+        var mat = document.getElementById("scMat");
+        mat.innerHTML = DOMAIN_ORDER.map(function (d) {
+          var sub = r.byDomain[d] || 0;
+          var m = maturity(sub);
+          var pct = Math.round(((15 - sub) / 15) * 100);
+          return '<div class="sc-mat__row">' +
+            '<div class="sc-mat__name">' + d + '</div>' +
+            '<div class="sc-mat__bar-wrap"><div class="sc-mat__bar" style="width:' + pct + '%"></div></div>' +
+            '<div class="sc-mat__level">L' + m.lvl + ' · ' + m.name + '</div>' +
+          '</div>';
+        }).join("");
+
+        // action plan: all three pillars, in fixed fix-order (Process, People, Technology).
+        // The pillar where they score worst gets a "biggest gap" flag (tie-break by display order).
+        var worst = null, worstVal = -1;
+        DOMAIN_ORDER.forEach(function (d) {
+          if ((r.byDomain[d] || 0) > worstVal) { worstVal = r.byDomain[d] || 0; worst = d; }
+        });
+        var plan = document.getElementById("scPlan");
+        plan.innerHTML = PLAN_ORDER.map(function (d, i) {
+          var a = DOMAIN_ACTION[d];
+          var m = maturity(r.byDomain[d] || 0);
+          var gap = (d === worst) ? '<span class="sc-step__gap">Your biggest gap</span>' : '';
+          return '<div class="sc-step">' +
+            '<div class="sc-step__num">' + (i + 1) + '</div>' +
+            '<div class="sc-step__when">' + STEP_WHEN[i] + '</div>' +
+            '<div class="sc-step__domain">' + d + ' &middot; L' + m.lvl + ' ' + m.name + '</div>' +
+            '<h4>' + a.title + '</h4>' +
+            '<p>' + a.body + '</p>' + gap +
+          '</div>';
+        }).join("");
+
+        // reveal
+        gate.classList.remove("is-shown");
+        teaser.classList.remove("is-shown");
+        report.classList.add("is-shown");
+        var y = report.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+
+      /* ---------- Lead capture ---------- */
+      function storeLocal(payload) {
+        try {
+          var arr = JSON.parse(localStorage.getItem("qs_fcs_leads") || "[]");
+          arr.push(payload); localStorage.setItem("qs_fcs_leads", JSON.stringify(arr));
+        } catch (e) {}
+      }
+      function sendLead(payload) {
+        storeLocal(payload);
+        if (LEAD_ENDPOINT) {
+          try {
+            fetch(LEAD_ENDPOINT, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", "Accept": "application/json" },
+              body: JSON.stringify(payload)
+            }).catch(function () {});
+          } catch (e) {}
+        }
+      }
+
+      /* ---------- Validation + submit ---------- */
+      function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+
+      document.getElementById("scGateForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var honey = document.getElementById("fCompanyUrl").value;
+        if (honey) return; // bot
+
+        var name = document.getElementById("fName").value.trim();
+        var email = document.getElementById("fEmail").value.trim();
+        var agency = document.getElementById("fAgency").value.trim();
+        var team = parseInt(document.getElementById("fTeam").value, 10);
+        var clients = parseInt(document.getElementById("fClients").value, 10);
+        var retainer = parseInt(document.getElementById("fRetainer").value, 10);
+
+        var bad = [];
+        function mark(id, cond) { var el = document.getElementById(id); el.classList.toggle("sc-invalid", !cond); if (!cond) bad.push(id); }
+        mark("fName", name.length > 0);
+        mark("fEmail", isEmail(email));
+        mark("fTeam", team >= 1);
+        mark("fClients", clients >= 1);
+        mark("fRetainer", !isNaN(retainer) && retainer >= 0);
+
+        var err = document.getElementById("scGateError");
+        if (bad.length) { err.classList.add("is-shown"); document.getElementById(bad[0]).focus(); return; }
+        err.classList.remove("is-shown");
+
+        var r = computeScore();
+        var band = bandFor(r.score);
+        var lead = {
+          name: name, email: email, agency: agency,
+          team: team, clients: clients, retainer: isNaN(retainer) ? 0 : retainer,
+          score: r.score, band: band.name,
+          byDomain: r.byDomain,
+          source: "founder-ceiling-scorecard",
+          ts: new Date().toISOString()
+        };
+        lastPayload = lead;
+        sendLead(lead);
+        renderReport(lead);
+      });
+
+      /* ---------- Form change ---------- */
+      document.getElementById("scForm").addEventListener("change", function (e) {
+        var t = e.target;
+        if (t && t.name && /^q\d+$/.test(t.name)) {
+          var idx = parseInt(t.name.slice(1), 10);
+          answers[idx] = parseInt(t.value, 10);
+          var card = document.getElementById("q" + idx);
+          if (card) card.classList.add("is-answered");
+          onAnswerChange();
+        }
+      });
+
+      /* ---------- Print + retake ---------- */
+      document.getElementById("scPrint").addEventListener("click", function () { window.print(); });
+      document.getElementById("scRetake").addEventListener("click", function () {
+        answers = {};
+        document.getElementById("scForm").reset();
+        document.querySelectorAll(".sc-q.is-answered").forEach(function (c) { c.classList.remove("is-answered"); });
+        report.classList.remove("is-shown");
+        teaser.classList.remove("is-shown");
+        gate.classList.remove("is-shown");
+        count.textContent = "0"; fill.style.width = "0%";
+        incomplete.style.display = "block";
+        incomplete.textContent = "Answer all " + total + " to unlock your diagnosis. It appears below automatically.";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    })();
+  </script>
+</body>
+</html>
