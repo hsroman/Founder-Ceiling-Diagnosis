@@ -255,6 +255,10 @@
       .sc-report { display: block !important; padding: 0; }
       .sc-doc { box-shadow: none; border: 0; }
       .sc-cost { background: #2B323D !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      /* keep the multi-column layouts that live behind min-width breakpoints */
+      .sc-plan { grid-template-columns: repeat(3, 1fr) !important; }
+      .sc-scope__reality { grid-template-columns: repeat(3, 1fr) !important; }
+      .sc-step, .sc-scope__stat, .sc-doc__section { break-inside: avoid; }
     }
   </style>
 </head>
