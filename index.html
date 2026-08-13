@@ -338,7 +338,7 @@
         <div class="sc-teaser__card">
           <div class="sc-teaser__inner">
             <div class="sc-teaser__eyebrow">Your dependence score</div>
-            <div><span class="sc-teaser__score" id="scTeaserNum">0</span><span class="sc-teaser__den"> / 45</span></div>
+            <div><span class="sc-teaser__score" id="scTeaserNum">0</span><span class="sc-teaser__den"> founder-dependent</span></div>
             <div class="sc-teaser__band" id="scTeaserBand">—</div>
             <p class="sc-teaser__blurb" id="scTeaserBlurb"></p>
             <p class="sc-teaser__next">Your full diagnosis, the cost estimate, and your 3-step plan unlock just below.</p>
@@ -431,7 +431,7 @@
               <div class="sc-doc__section-label">The headline</div>
               <div class="sc-summary">
                 <div>
-                  <div><span class="sc-summary__score" id="scRepScore">0</span><span class="sc-summary__den"> / 45 dependence</span></div>
+                  <div><span class="sc-summary__score" id="scRepScore">0</span><span class="sc-summary__den"> founder-dependent</span></div>
                   <div class="sc-summary__band" id="scRepBand">—</div>
                   <p class="sc-summary__blurb" id="scRepBlurb"></p>
                 </div>
@@ -469,26 +469,19 @@
             <div class="sc-doc__section">
               <div class="sc-doc__section-label">What a finished system actually takes</div>
               <div class="sc-scope">
-                <p class="sc-scope__lead">Those three moves fix <strong>one</strong> workflow. A founder-proof agency runs every one of its core processes through the same improvement loop, across all three pillars. That loop is the operating function.</p>
-                <div class="sc-scope__loop">
-                  <span>Define done (OKRs)</span>
-                  <span>Execute (SIPOC + reverse-schedule)</span>
-                  <span>Close the feedback loop</span>
-                  <span>Communicate &amp; train</span>
-                </div>
+                <p class="sc-scope__lead">Those three moves fix <strong>one</strong> workflow. A founder-proof agency needs every core process running that cleanly, and that is a much bigger job than a few weekends.</p>
                 <div class="sc-scope__reality">
                   <div class="sc-scope__stat"><span class="sc-scope__num">~15</span><span class="sc-scope__lbl">core processes to systemize</span></div>
                   <div class="sc-scope__stat"><span class="sc-scope__num">~180 hrs</span><span class="sc-scope__lbl">of founder time, done properly</span></div>
-                  <div class="sc-scope__stat"><span class="sc-scope__num">~10 mo</span><span class="sc-scope__lbl">at the pace you can spare, on top of running the agency</span></div>
+                  <div class="sc-scope__stat"><span class="sc-scope__num">~10 mo</span><span class="sc-scope__lbl">part-time, on top of running the agency</span></div>
                 </div>
-                <p class="sc-scope__close">You can start step 1 this week. Finishing it alone is the better part of a year you already told us you do not have.</p>
               </div>
             </div>
 
             <!-- CTA -->
             <div class="sc-report__cta">
-              <h3>This is the free version.</h3>
-              <p>All of that came from 15 questions and three numbers. On a free 30-minute call we turn your diagnosis into a 90-day install roadmap: which processes to systemize first, who owns them, and how your tool carries them. You leave with the plan whether or not you hire us.</p>
+              <h3>That is the diagnosis. The call gets you the fix.</h3>
+              <p>A free 30-minute call turns your diagnosis into the plan: what to systemize first, who owns it, and how your tool carries it. No pitch, and you keep the roadmap whether or not you hire us.</p>
               <div class="sc-report__cta-row">
                 <a href="#book" class="btn btn--primary" data-booking-link>Book my install roadmap <span class="arrow">→</span></a>
               </div>
@@ -599,20 +592,27 @@
       // One easy first move per pillar, rendered in PLAN_ORDER (Process, People, Technology):
       // the fix sequence, foundation first. Each is a Monday-able action; the scope reveal
       // below the plan shows the full system these three moves only seed.
+      // Three action variants per pillar, chosen by that pillar's maturity: build (L1-L2,
+      // subscore 9-15), tighten (L3, 6-8), protect (L4-L5, 0-5). So the plan matches the
+      // agency's actual profile instead of assuming everything is broken.
       var DOMAIN_ACTION = {
         "Process": {
-          title: "Write down your most-repeated process, start to finish",
-          body: "Pick the workflow you run most: onboarding, campaign launch, or reporting. List every step, who owns it, and what “done” means. One document, a couple of hours. That single SOP is the seed of the whole system."
+          build:   { title: "Write down your most-repeated process, start to finish", body: "Pick the workflow you run most: onboarding, campaign launch, or reporting. List every step, who owns it, and what “done” means. One document, a couple of hours. That single SOP is the seed of the whole system." },
+          tighten: { title: "Pin your loose process to one standard with a real “done” bar", body: "You have a process, but it bends to whoever runs it. Lock the exact steps, the owner at each handoff, and a checklist for “done,” so it runs the same way every time, not only when you are watching." },
+          protect: { title: "Put your core processes on a review cycle", body: "They are documented and followed. Protect that: schedule a quarterly review of your top workflows so they keep improving instead of quietly going stale as the work changes." }
         },
         "People": {
-          title: "Name the one person who will own operations",
-          body: "Decide who is accountable for the system, or define the role you need to hire. Tell them, and hand them that first written process to run. You are creating the seat the agency does not have yet."
+          build:   { title: "Name the one person who will own operations", body: "Decide who is accountable for the system, or define the role you need to hire. Tell them, and hand them that first written process to run. You are creating the seat the agency does not have yet." },
+          tighten: { title: "Give your ops owner real authority, not just the title", body: "Someone holds the seat, but the team still routes to you. Move one whole category of decisions to them this week and back them in front of the team, so people learn the new path." },
+          protect: { title: "Remove the key-person risk from your ops seat", body: "Ops is owned and respected. Now de-risk it: document the owner’s standard work and cross-train a backup, so a vacation or a resignation does not reset you to square one." }
         },
         "Technology": {
-          title: "Rebuild that one process in your PM tool as a template",
-          body: "Take the process you just wrote down and set it up once in your software: statuses, a checklist, a due-date pattern. Next time it runs from a reusable template instead of from memory."
+          build:   { title: "Rebuild that one process in your PM tool as a template", body: "Take the process you just wrote down and set it up once in your software: statuses, a checklist, a due-date pattern. Next time it runs from a reusable template instead of from memory." },
+          tighten: { title: "Make the tool the single source of truth for one workflow", body: "Work lives in the tool, but also in Slack, email, and people’s heads. Pick one workflow and require it to run entirely in the platform for two weeks, so status reflects reality without anyone being asked." },
+          protect: { title: "Automate the busywork your tool already tracks", body: "Your team actually uses the platform. Make it earn its keep: add automations for the repetitive moves (handoffs, reminders, status changes) so the system nudges people instead of you." }
         }
       };
+      function tierFor(sub) { if (sub >= 9) return "build"; if (sub >= 6) return "tighten"; return "protect"; }
 
       var STEP_WHEN = ["This week", "Next 2 weeks", "The week after"];
 
@@ -693,7 +693,7 @@
       function showTeaserAndGate() {
         var r = computeScore();
         var band = bandFor(r.score);
-        document.getElementById("scTeaserNum").textContent = r.score;
+        document.getElementById("scTeaserNum").textContent = Math.round(r.score / 45 * 100) + "%";
         document.getElementById("scTeaserBand").textContent = band.name;
         document.getElementById("scTeaserBlurb").textContent = band.blurb;
         teaser.classList.add("is-shown");
@@ -779,7 +779,7 @@
         } catch (e) { document.getElementById("scRepDate").textContent = ""; }
 
         // headline
-        document.getElementById("scRepScore").textContent = r.score;
+        document.getElementById("scRepScore").textContent = Math.round(r.score / 45 * 100) + "%";
         document.getElementById("scRepBand").textContent = band.name;
         document.getElementById("scRepBlurb").textContent = band.blurb;
         document.getElementById("scRadar").innerHTML = buildRadar(r.byDomain);
@@ -819,15 +819,15 @@
         }).join("");
 
         // action plan: all three pillars, in fixed fix-order (Process, People, Technology).
-        // The pillar where they score worst gets a "biggest gap" flag (tie-break by display order).
-        var worst = null, worstVal = -1;
-        DOMAIN_ORDER.forEach(function (d) {
-          if ((r.byDomain[d] || 0) > worstVal) { worstVal = r.byDomain[d] || 0; worst = d; }
-        });
+        // Each action adapts to that pillar's maturity. Biggest-gap flag = worst (highest)
+        // subscore; on a tie it goes to Process (step 1, the foundation).
+        var maxVal = Math.max(r.byDomain.Process || 0, r.byDomain.People || 0, r.byDomain.Technology || 0);
+        var worst = ["Process", "People", "Technology"].filter(function (d) { return (r.byDomain[d] || 0) === maxVal; })[0];
         var plan = document.getElementById("scPlan");
         plan.innerHTML = PLAN_ORDER.map(function (d, i) {
-          var a = DOMAIN_ACTION[d];
-          var m = maturity(r.byDomain[d] || 0);
+          var sub = r.byDomain[d] || 0;
+          var a = DOMAIN_ACTION[d][tierFor(sub)];
+          var m = maturity(sub);
           var gap = (d === worst) ? '<span class="sc-step__gap">Your biggest gap</span>' : '';
           return '<div class="sc-step">' +
             '<div class="sc-step__num">' + (i + 1) + '</div>' +
