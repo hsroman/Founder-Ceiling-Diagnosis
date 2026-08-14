@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>The Founder Ceiling Diagnosis — [NewCo]</title>
-  <meta name="description" content="A free operating diagnosis for founder-led US marketing agencies. Answer 15 questions and get a personalized report: your dependence score, a maturity read across the three pillars, an estimate of what the ceiling is costing you, and a 3-step action plan." />
+  <meta name="description" content="A free operating diagnosis for founder-led US marketing agencies. Answer 9 questions and get a personalized report: your dependence score, a maturity read across the three pillars, an estimate of what the ceiling is costing you, and a 3-step action plan." />
 
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -401,7 +401,7 @@
         <form id="scForm" aria-label="Founder Ceiling Diagnosis">
           <div id="scQuestions"><!-- rendered by JS --></div>
         </form>
-        <p class="sc-incomplete" id="scIncomplete">Answer all 15 to unlock your diagnosis. It appears below automatically.</p>
+        <p class="sc-incomplete" id="scIncomplete">Answer all 9 to unlock your diagnosis. It appears below automatically.</p>
       </div>
     </section>
 
@@ -600,25 +600,17 @@
       // Questions are grouped into the three AOS pillars, each mapped to one of the
       // three points of failure. Diagnose order = failure order (1 Technology, 2 People,
       // 3 Process) so the assessment builds to the Process reveal.
+      // 9 questions, 3 per pillar (Technology / People / Process). Each scored 0-3.
       var QUESTIONS = [
-        // Technology — Failure 1: installed PM software, became a filing cabinet nobody updates
-        { d: "Technology", t: "We have a PM tool, but the team still runs on Slack, email, and memory." },
         { d: "Technology", t: "To know how the work is really going, I have to ask someone directly, because the status in our software is out of date." },
-        { d: "Technology", t: "We pay for tools that only a couple of people actually use the way they should." },
         { d: "Technology", t: "Our PM tool has become a place where tasks get logged and then forgotten." },
         { d: "Technology", t: "We installed software expecting it to fix our operations, and it mostly did not." },
-        // People (culture) — Failure 2: hired a PM, but ownership still routes back to you
-        { d: "People", t: "There is no one person besides me who is truly accountable for operations." },
         { d: "People", t: "I have someone in ops, but the team still comes to me for answers." },
-        { d: "People", t: "The client’s real loyalty is to me, not to the team or the agency." },
-        { d: "People", t: "If I went dark for two days, at least one account would wobble." },
         { d: "People", t: "If I sold the agency tomorrow, the buyer is really buying me." },
-        // Process — Failure 3: did 1 and 2 but never built the process infrastructure, so both fail
+        { d: "People", t: "If I went dark for two days, at least one account would wobble." },
         { d: "Process", t: "New team members learn the job by watching me and others, not from a written process." },
-        { d: "Process", t: "People keep making the same mistakes." },
-        { d: "Process", t: "There is no consistent “done” standard; it lives in my head." },
         { d: "Process", t: "Deadlines are hit because I am chasing them, not because a defined workflow protects them." },
-        { d: "Process", t: "When we take on new work, we improvise who does what instead of following a set process." }
+        { d: "Process", t: "There is no consistent “done” standard; it lives in my head." }
       ];
 
       var DOMAIN_ORDER = ["Technology", "People", "Process"];   // diagnose / display order (failures 1, 2, 3)
@@ -643,23 +635,24 @@
         { v: 3, label: "Completely" }
       ];
 
+      // Bands on the raw score (0-27 for 9 questions).
       var BANDS = [
-        { min: 0,  max: 11, name: "Systems-led",
+        { min: 0,  max: 6, name: "Systems-led",
           blurb: "Be proud of yourself and your team: the agency runs on systems and processes instead of you. Protect what you built by setting up an auditing loop, especially as you grow." },
-        { min: 12, max: 22, name: "Approaching the ceiling",
+        { min: 7, max: 13, name: "Approaching the ceiling",
           blurb: "You're almost there. The cracks are structural instead of personal. You can still fix this cheaply now: finish building the systems before you are dragged back to the Founder Bottleneck." },
-        { min: 23, max: 33, name: "At the Founder Ceiling",
+        { min: 14, max: 20, name: "At the Founder Ceiling",
           blurb: "Where most agencies stall for years. You are the operating system, so every new client and hire adds load to you. Growth makes it worse, not better. A fixable structural problem, not a work-ethic one." },
-        { min: 34, max: 45, name: "Single point of failure",
+        { min: 21, max: 27, name: "Single point of failure",
           blurb: "The agency cannot function without you in the loop, which caps both its growth and its sale value. The upside: a business this dependent on one person responds fastest to a real operating function, because there is so much trapped value to release." }
       ];
 
-      // Maturity level from a pillar sub-score (0-15). Higher sub-score = more dependent = lower maturity.
+      // Maturity level from a pillar sub-score (0-9). Higher sub-score = more dependent = lower maturity.
       function maturity(sub) {
-        if (sub <= 2) return { lvl: 5, name: "Systems-led" };
-        if (sub <= 5) return { lvl: 4, name: "Documented" };
-        if (sub <= 8) return { lvl: 3, name: "Inconsistent" };
-        if (sub <= 11) return { lvl: 2, name: "Founder-run" };
+        if (sub <= 1) return { lvl: 5, name: "Systems-led" };
+        if (sub <= 3) return { lvl: 4, name: "Documented" };
+        if (sub <= 5) return { lvl: 3, name: "Inconsistent" };
+        if (sub <= 7) return { lvl: 2, name: "Founder-run" };
         return { lvl: 1, name: "Chaotic" };
       }
 
@@ -686,7 +679,7 @@
           protect: { title: "Automate the busywork your tool already tracks", body: "Your team actually uses the platform. Make it earn its keep: add automations for the repetitive moves (handoffs, reminders, status changes) so the system nudges people instead of you." }
         }
       };
-      function tierFor(sub) { if (sub >= 9) return "build"; if (sub >= 6) return "tighten"; return "protect"; }
+      function tierFor(sub) { if (sub >= 6) return "build"; if (sub >= 3) return "tighten"; return "protect"; }
 
       var STEP_WHEN = ["This week", "Next 2 weeks", "The week after"];
 
@@ -695,21 +688,9 @@
 
       /* ---------- Render questions ---------- */
       var wrap = document.getElementById("scQuestions");
-      var lastDomain = null, domainIndex = 0;
       var frag = document.createDocumentFragment();
 
       QUESTIONS.forEach(function (q, i) {
-        if (q.d !== lastDomain) {
-          domainIndex++; lastDomain = q.d;
-          var group = document.createElement("div");
-          group.className = "sc-domain";
-          group.innerHTML =
-            '<div class="sc-domain__head">' +
-              '<span class="sc-domain__hint">' + (DOMAIN_HINTS[q.d] || "") + '</span>' +
-            '</div><div class="sc-domain__body"></div>';
-          frag.appendChild(group);
-        }
-        var body = frag.lastChild.querySelector(".sc-domain__body");
         var card = document.createElement("div");
         card.className = "sc-q"; card.id = "q" + i;
         var opts = SCALE.map(function (s) {
@@ -719,7 +700,7 @@
         }).join("");
         card.innerHTML = '<div class="sc-q__text">' + q.t + '</div>' +
           '<div class="sc-options" role="radiogroup" aria-label="' + q.t.replace(/"/g, "&quot;") + '">' + opts + '</div>';
-        body.appendChild(card);
+        frag.appendChild(card);
       });
       wrap.appendChild(frag);
 
@@ -765,7 +746,7 @@
       function showTeaserAndGate() {
         var r = computeScore();
         var band = bandFor(r.score);
-        document.getElementById("scTeaserNum").textContent = Math.round(r.score / 45 * 100) + "%";
+        document.getElementById("scTeaserNum").textContent = Math.round(r.score / 27 * 100) + "%";
         document.getElementById("scTeaserBand").textContent = band.name;
         document.getElementById("scTeaserBlurb").textContent = band.blurb;
         teaser.classList.add("is-shown");
@@ -799,12 +780,12 @@
         // value polygon: higher maturity = larger. maturity value = (15 - sub)/15
         var valPts = DOMAIN_ORDER.map(function (d, i) {
           var sub = byDomain[d] || 0;
-          var val = (15 - sub) / 15;
+          var val = (9 - sub) / 9;
           if (val < 0.06) val = 0.06;
           return pt(i, R * val).join(",");
         }).join(" ");
         var dots = DOMAIN_ORDER.map(function (d, i) {
-          var sub = byDomain[d] || 0; var val = (15 - sub) / 15; if (val < 0.06) val = 0.06;
+          var sub = byDomain[d] || 0; var val = (9 - sub) / 9; if (val < 0.06) val = 0.06;
           var p = pt(i, R * val);
           return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="3" fill="#B57748"/>';
         }).join("");
@@ -851,7 +832,7 @@
         } catch (e) { document.getElementById("scRepDate").textContent = ""; }
 
         // headline
-        document.getElementById("scRepScore").textContent = Math.round(r.score / 45 * 100) + "%";
+        document.getElementById("scRepScore").textContent = Math.round(r.score / 27 * 100) + "%";
         document.getElementById("scRepBand").textContent = band.name;
         document.getElementById("scRepBlurb").textContent = band.blurb;
         document.getElementById("scRadar").innerHTML = buildRadar(r.byDomain);
@@ -881,7 +862,7 @@
         mat.innerHTML = DOMAIN_ORDER.map(function (d) {
           var sub = r.byDomain[d] || 0;
           var m = maturity(sub);
-          var pct = Math.round(((15 - sub) / 15) * 100);
+          var pct = Math.round(((9 - sub) / 9) * 100);
           return '<div class="sc-mat__row">' +
             '<div class="sc-mat__name">' + d + '</div>' +
             '<div class="sc-mat__bar-wrap"><div class="sc-mat__bar" style="width:' + pct + '%"></div></div>' +
