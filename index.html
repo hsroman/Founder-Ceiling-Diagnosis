@@ -276,11 +276,13 @@
     /* Header CTA visible on mobile */
     .site-header__cta { display: inline-flex; }
     @media (max-width: 520px) {
-      .site-header__cta { padding: 0.6rem 0.95rem; font-size: 0.75rem; letter-spacing: 0.03em; }
+      .site-header__cta { padding: 0.5rem 0.9rem; font-size: 0.75rem; letter-spacing: 0.03em; }
       .site-wordmark { font-size: 1.2rem; }
-      /* Keep both hero CTAs on one row, equal width */
-      .sc-hero__cta-row { flex-wrap: nowrap; gap: 0.6rem; align-items: stretch; }
-      .sc-hero__cta-row .btn { flex: 1 1 0; min-width: 0; padding: 0.8rem 0.55rem; font-size: 0.72rem; letter-spacing: 0.02em; white-space: normal; text-align: center; justify-content: center; }
+      /* Both CTA pairs: one row, equal width, slim */
+      .sc-hero__cta-row, .sc-pf__cta { flex-wrap: nowrap; gap: 0.6rem; align-items: stretch; }
+      .sc-hero__cta-row .btn, .sc-pf__cta .btn { flex: 1 1 0; min-width: 0; padding: 0.62rem 0.5rem; font-size: 0.7rem; letter-spacing: 0.02em; white-space: normal; text-align: center; justify-content: center; line-height: 1.2; }
+      /* Trust chips on one line */
+      .sc-hero__meta { flex-wrap: nowrap; gap: 0.85rem; font-size: 0.68rem; letter-spacing: 0.04em; white-space: nowrap; }
     }
 
     /* Problem + Fix (two-column) */
