@@ -263,12 +263,24 @@
     .sc-heroproof__unit { font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.65; margin-left: 0.3rem; display: inline-block; }
     .sc-heroproof__text { color: var(--slate); font-size: 0.98rem; line-height: 1.55; margin-top: 0.9rem; }
     .sc-heroproof__attr { font-family: var(--font-serif); font-style: italic; color: var(--navy); font-weight: 700; font-size: 0.95rem; margin-top: 0.85rem; }
+    .sc-heroproof__bridge { margin-top: 1.25rem; padding-top: 1.1rem; border-top: 1px solid rgba(43,50,61,0.14); }
+    .sc-heroproof__bridge > p { color: var(--navy); font-size: 0.95rem; line-height: 1.5; font-weight: 700; margin-bottom: 0.75rem; }
+    .sc-heroproof__links { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 1.1rem; }
+    .sc-heroproof__link { font-size: 0.9rem; font-weight: 700; color: var(--slate); text-decoration: underline; text-underline-offset: 3px; transition: color var(--t-fast) var(--ease); }
+    .sc-heroproof__link:hover { color: var(--rust); }
+    .sc-heroproof__link--book { color: var(--rust-dark); text-decoration: none; display: inline-flex; align-items: center; gap: 0.4rem; }
+    .sc-heroproof__link--book:hover { color: var(--rust); }
+    .sc-heroproof__link--book .arrow { transition: transform var(--t-fast) var(--ease); }
+    .sc-heroproof__link--book:hover .arrow { transform: translateX(3px); }
 
     /* Header CTA visible on mobile */
     .site-header__cta { display: inline-flex; }
     @media (max-width: 520px) {
       .site-header__cta { padding: 0.6rem 0.95rem; font-size: 0.75rem; letter-spacing: 0.03em; }
       .site-wordmark { font-size: 1.2rem; }
+      /* Keep both hero CTAs on one row, equal width */
+      .sc-hero__cta-row { flex-wrap: nowrap; gap: 0.6rem; align-items: stretch; }
+      .sc-hero__cta-row .btn { flex: 1 1 0; min-width: 0; padding: 0.8rem 0.55rem; font-size: 0.72rem; letter-spacing: 0.02em; white-space: normal; text-align: center; justify-content: center; }
     }
 
     /* Problem + Fix (two-column) */
@@ -350,6 +362,13 @@
           <div class="sc-heroproof__stat">$100k <span>→</span> $140k <span class="sc-heroproof__unit">MRR</span></div>
           <p class="sc-heroproof__text">After we got Kyle out of day-to-day ops, he was free to sell again, and grew MRR 40% in 2 months.</p>
           <p class="sc-heroproof__attr">Kyle — agency founder, Atlanta</p>
+          <div class="sc-heroproof__bridge">
+            <p>Want the exact framework we used to unlock Kyle's agency?</p>
+            <div class="sc-heroproof__links">
+              <a href="#book" class="sc-heroproof__link sc-heroproof__link--book" data-booking-link>Book a call <span class="arrow">→</span></a>
+              <a href="#scStart" class="sc-heroproof__link">or take the free diagnosis</a>
+            </div>
+          </div>
         </aside>
       </div>
     </section>
