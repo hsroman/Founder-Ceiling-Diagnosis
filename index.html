@@ -248,9 +248,35 @@
     .sc-linkbtn { background: none; color: var(--slate); text-decoration: underline; text-underline-offset: 3px; font-size: 0.88rem; font-weight: 700; transition: color var(--t-fast) var(--ease); }
     .sc-linkbtn:hover { color: var(--rust); }
 
+    /* Hero CTA row + soft link */
+    .sc-hero__cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; margin-bottom: 1.75rem; }
+    .sc-hero__soft { color: var(--cream-soft); font-size: 0.92rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; opacity: 0.85; transition: opacity var(--t-fast) var(--ease), color var(--t-fast) var(--ease); }
+    .sc-hero__soft:hover { opacity: 1; color: var(--cream); }
+    #scStart { scroll-margin-top: 90px; }
+
+    /* Business-impact (stakes) strip */
+    .sc-stakes { padding: clamp(2rem, 5vw, 3rem) 0 0; }
+    .sc-stakes__lead { font-family: var(--font-serif); font-style: italic; font-size: clamp(1.1rem, 2vw, 1.35rem); color: var(--navy); line-height: 1.5; max-width: 760px; margin-bottom: 1.5rem; }
+    .sc-stakes__grid { display: grid; grid-template-columns: 1fr; gap: 0.85rem; }
+    @media (min-width: 760px) { .sc-stakes__grid { grid-template-columns: repeat(3, 1fr); } }
+    .sc-stakes__item { background: var(--cream-soft); border-left: 3px solid var(--rust); border-radius: var(--radius); padding: 1.1rem 1.25rem; color: var(--slate); font-size: 0.95rem; line-height: 1.5; }
+    .sc-stakes__item strong { color: var(--navy); font-family: var(--font-serif); }
+
+    /* Social-proof strip */
+    .sc-proof { padding: clamp(2rem, 5vw, 3rem) 0 0; }
+    .sc-proof__card { background: var(--navy); color: var(--cream-soft); border-radius: var(--radius-lg); border-left: 5px solid var(--rust); padding: clamp(1.5rem, 4vw, 2.25rem); display: grid; grid-template-columns: auto 1fr; gap: 1.25rem 2rem; align-items: center; }
+    @media (max-width: 620px) { .sc-proof__card { grid-template-columns: 1fr; gap: 1rem; } }
+    .sc-proof__stat { font-family: var(--font-serif); font-weight: 700; font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--cream); line-height: 1; white-space: nowrap; }
+    .sc-proof__stat span { color: var(--rust); }
+    .sc-proof__unit { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.8; display: inline-block; margin-left: 0.3rem; }
+    .sc-proof__text { color: var(--cream-soft); font-size: 0.98rem; line-height: 1.6; }
+
+    /* Report CTA proof line */
+    .sc-report__cta p.sc-report__cta-proof { color: var(--rust-dark); font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; margin: -0.5rem auto 1.5rem; max-width: 620px; }
+
     /* Print */
     @media print {
-      .site-header, .footer, .sc-hero, .sc-quiz, .sc-teaser, .sc-gate, .sc-report__cta, .sc-report__utility, .section { display: none !important; }
+      .site-header, .footer, .sc-hero, .sc-stakes, .sc-proof, .sc-pillars, .sc-quiz, .sc-teaser, .sc-gate, .sc-report__cta, .sc-report__utility, .section { display: none !important; }
       body { background: #fff; }
       .sc-report { display: block !important; padding: 0; }
       .sc-doc { box-shadow: none; border: 0; }
@@ -285,7 +311,11 @@
       <div class="container sc-hero__inner">
         <div class="hero__eyebrow">Free Operating Diagnosis · For Founder-Led US Marketing Agencies</div>
         <h1>How much of your agency is riding on you?</h1>
-        <p class="sc-hero__lead">Answer 15 questions and get a personalized diagnosis: your dependence score, a maturity read across the three pillars every agency runs on (process, people, and technology), an estimate of what the ceiling is costing you in real dollars, and a 3-step plan to start fixing it.</p>
+        <p class="sc-hero__lead">15 questions. About 4 minutes. A straight answer, plus what the ceiling is costing you.</p>
+        <div class="sc-hero__cta-row">
+          <a href="#scStart" class="btn btn--primary">Start the diagnosis <span class="arrow">→</span></a>
+          <a href="#book" class="sc-hero__soft" data-booking-link>or just book a call</a>
+        </div>
         <div class="sc-hero__meta">
           <span>15 questions</span>
           <span>About 4 minutes</span>
@@ -294,10 +324,32 @@
       </div>
     </section>
 
-    <!-- Three pillars / three failures framing -->
+    <!-- Business impact: the stakes, before they invest -->
+    <section class="sc-stakes">
+      <div class="container" style="max-width: 900px;">
+        <p class="sc-stakes__lead">Most agencies hit a wall between 8 and 15 people. Here is what it does to the business:</p>
+        <div class="sc-stakes__grid">
+          <div class="sc-stakes__item"><strong>Revenue stalls.</strong> You cannot grow past your own hours.</div>
+          <div class="sc-stakes__item"><strong>Your best clients start to churn.</strong> Delivery slips the moment you are not on it.</div>
+          <div class="sc-stakes__item"><strong>You are busier than ever.</strong> Every account and every hire routes back through you.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Social proof: the other side of the ceiling -->
+    <section class="sc-proof">
+      <div class="container" style="max-width: 900px;">
+        <div class="sc-proof__card">
+          <div class="sc-proof__stat">$100k <span>→</span> $140k <span class="sc-proof__unit">MRR</span></div>
+          <p class="sc-proof__text">A ~10-person US marketing agency got the founder out of day-to-day ops, freed him to sell again, and grew monthly recurring revenue 40%. That is what is on the other side of the ceiling.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How the fix works: three pillars, lighter -->
     <section class="sc-pillars">
       <div class="container" style="max-width: 900px;">
-        <p class="sc-pillars__lead">Every agency trying to escape the founder ceiling makes the same three moves, and they fail in the same order. This diagnosis scores all three, because fixing one without the others is exactly why the last attempt did not stick.</p>
+        <p class="sc-pillars__lead">Every real fix touches three things, and they fail in the same order. This diagnosis scores all three, because fixing one without the others is exactly why the last attempt did not stick.</p>
         <div class="sc-pillars__grid">
           <div class="sc-pillar">
             <div class="sc-pillar__fail">Failure 1</div>
@@ -319,7 +371,7 @@
     </section>
 
     <!-- Quiz -->
-    <section class="sc-quiz">
+    <section class="sc-quiz" id="scStart">
       <div class="container" style="max-width: 900px;">
         <div class="sc-progress" id="scProgress" aria-hidden="true">
           <div class="sc-progress__count"><span id="scCount">0</span> / 15 answered</div>
@@ -461,7 +513,7 @@
             <!-- Action plan -->
             <div class="sc-doc__section">
               <div class="sc-doc__section-label">Your 3-step action plan</div>
-              <p class="sc-plan-intro">You likely hit these in order: install software first, hire a PM second, and never build the process. The fix runs in reverse. Build the process foundation, put an owner on it, then make the tool carry it. Your maturity per pillar is marked.</p>
+              <p class="sc-plan-intro">Three first moves, in the order the fix actually runs: process, then an owner, then the tool. Marked to your maturity per pillar.</p>
               <div class="sc-plan" id="scPlan"><!-- steps injected --></div>
             </div>
 
@@ -482,6 +534,7 @@
             <div class="sc-report__cta">
               <h3>That is the diagnosis. The call gets you the fix.</h3>
               <p>A free 30-minute call turns your diagnosis into the plan: what to systemize first, who owns it, and how your tool carries it. No pitch, and you keep the roadmap whether or not you hire us.</p>
+              <p class="sc-report__cta-proof">The agency that went $100k → $140k started right here.</p>
               <div class="sc-report__cta-row">
                 <a href="#book" class="btn btn--primary" data-booking-link>Book my install roadmap <span class="arrow">→</span></a>
               </div>
@@ -798,11 +851,10 @@
           costYearEl.textContent = money(cost.annual) + " / year";
           costMonthEl.textContent = "about " + money(cost.monthly) + " / month";
           costBasisEl.textContent =
-            "By your own count, you have " + atRiskLabel +
-            " lost or close to losing over delivery, deadline, or communication problems. At " +
-            (cost.usedDefault ? "an industry-typical $3,500" : money(cost.retainer)) + " a month each" +
-            (cost.usedDefault ? " (enter your real retainer for an exact figure)" : "") +
-            ", that is about " + money(cost.annual) + " a year in revenue on the line, exactly what an operating system protects. This counts churn and at-risk accounts only, not the growth you cannot capture while your time runs delivery.";
+            atRiskLabel + " lost or at risk over delivery and comms, at " +
+            (cost.usedDefault ? "an industry-typical $3,500" : money(cost.retainer)) + "/mo each" +
+            (cost.usedDefault ? " (add your real retainer for an exact figure)" : "") +
+            " — about " + money(cost.annual) + " a year on the line. And that is before the growth you cannot capture while your time runs delivery.";
         }
 
         // maturity rows
