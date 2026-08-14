@@ -85,7 +85,7 @@
     }
     .sc-domain__num { font-family: var(--font-serif); font-size: 1.4rem; font-weight: 700; color: var(--rust); line-height: 1; }
     .sc-domain__name { font-family: var(--font-serif); font-size: 1.35rem; color: var(--navy); font-weight: 700; }
-    .sc-domain__hint { font-family: var(--font-serif); font-style: italic; color: var(--slate); font-size: 0.98rem; margin-left: auto; text-align: right; }
+    .sc-domain__hint { font-family: var(--font-serif); color: var(--navy); font-weight: 700; font-size: clamp(1.1rem, 2.4vw, 1.35rem); line-height: 1.25; }
 
     .sc-q {
       background: var(--white); border: 1px solid rgba(43,50,61,0.08);
@@ -288,6 +288,8 @@
     /* Quiz head */
     .sc-quiz__head { text-align: center; max-width: 640px; margin: 0 auto 2rem; }
     .sc-quiz__head h2 { font-size: clamp(1.6rem, 4vw, 2.4rem); color: var(--navy); line-height: 1.15; margin-bottom: 1rem; }
+    .sc-quiz__viz { max-width: 600px; margin: 0 auto 2.75rem; background: var(--white); border: 1px solid rgba(43,50,61,0.1); border-radius: 14px; padding: 1.25rem 1.35rem; }
+    .sc-quiz__viz svg { width: 100%; height: auto; display: block; }
 
     /* Report CTA proof line */
     .sc-report__cta p.sc-report__cta-proof { color: var(--rust-dark); font-family: var(--font-serif); font-style: italic; font-size: 0.95rem; margin: -0.5rem auto 1.5rem; max-width: 620px; }
@@ -362,10 +364,24 @@
           <div class="eyebrow">The diagnosis</div>
           <h2>Get your Founder Ceiling score</h2>
         </div>
-        <div class="sc-progress" id="scProgress" aria-hidden="true">
-          <div class="sc-progress__count"><span id="scCount">0</span> / 15 answered</div>
-          <div class="sc-progress__track"><div class="sc-progress__fill" id="scFill"></div></div>
-        </div>
+        <figure class="sc-quiz__viz">
+          <svg viewBox="0 0 440 300" role="img" aria-label="A growth curve rising then flattening against the Founder Ceiling line">
+            <title>The Founder Ceiling</title>
+            <line x1="58" y1="40" x2="58" y2="240" stroke="#65676B" stroke-width="1.5"/>
+            <line x1="58" y1="240" x2="405" y2="240" stroke="#65676B" stroke-width="1.5"/>
+            <text x="405" y="258" text-anchor="end" font-family="Arial" font-size="12" fill="#65676B">team size</text>
+            <text x="42" y="150" text-anchor="middle" font-family="Arial" font-size="12" fill="#65676B" transform="rotate(-90 42 150)">what the business can handle</text>
+            <line x1="58" y1="104" x2="405" y2="104" stroke="#2B323D" stroke-width="2" stroke-dasharray="6 5"/>
+            <text x="402" y="96" text-anchor="end" font-family="Georgia" font-size="15" font-weight="700" fill="#2B323D">The Founder Ceiling</text>
+            <path d="M58 226 C 150 188, 205 112, 232 102 C 300 78, 350 64, 405 50" fill="none" stroke="#AD9070" stroke-width="2.5" stroke-dasharray="5 5"/>
+            <text x="402" y="43" text-anchor="end" font-family="Arial" font-size="12.5" fill="#AD9070" font-weight="700">with an operating function</text>
+            <path d="M58 226 C 150 190, 205 112, 232 104 C 300 98, 350 104, 405 104" fill="none" stroke="#B57748" stroke-width="3.5"/>
+            <circle cx="232" cy="104" r="5.5" fill="#B57748" stroke="#EFE8DC" stroke-width="2.5"/>
+            <line x1="232" y1="240" x2="232" y2="233" stroke="#9A6238" stroke-width="1.5"/>
+            <text x="232" y="258" text-anchor="middle" font-family="Arial" font-size="13" font-weight="700" fill="#9A6238">8&#8211;15 people</text>
+            <text x="150" y="212" text-anchor="middle" font-family="Georgia" font-style="italic" font-size="12.5" fill="#65676B">most agencies stall here</text>
+          </svg>
+        </figure>
         <form id="scForm" aria-label="Founder Ceiling Diagnosis">
           <div id="scQuestions"><!-- rendered by JS --></div>
         </form>
@@ -673,8 +689,6 @@
           group.className = "sc-domain";
           group.innerHTML =
             '<div class="sc-domain__head">' +
-              '<span class="sc-domain__num">' + String(domainIndex).padStart(2, "0") + '</span>' +
-              '<span class="sc-domain__name">' + q.d + '</span>' +
               '<span class="sc-domain__hint">' + (DOMAIN_HINTS[q.d] || "") + '</span>' +
             '</div><div class="sc-domain__body"></div>';
           frag.appendChild(group);
@@ -719,8 +733,8 @@
 
       function onAnswerChange() {
         var answered = Object.keys(answers).length;
-        count.textContent = answered;
-        fill.style.width = Math.round((answered / total) * 100) + "%";
+        if (count) count.textContent = answered;
+        if (fill) fill.style.width = Math.round((answered / total) * 100) + "%";
         if (answered < total) {
           teaser.classList.remove("is-shown");
           gate.classList.remove("is-shown");
@@ -973,7 +987,7 @@
         report.classList.remove("is-shown");
         teaser.classList.remove("is-shown");
         gate.classList.remove("is-shown");
-        count.textContent = "0"; fill.style.width = "0%";
+        if (count) count.textContent = "0"; if (fill) fill.style.width = "0%";
         incomplete.style.display = "block";
         incomplete.textContent = "Answer all " + total + " to unlock your diagnosis. It appears below automatically.";
         window.scrollTo({ top: 0, behavior: "smooth" });
